@@ -6,11 +6,11 @@ import "./sFil.sol";
 error InsufficientFunds();
 
 contract FileSaver {
-    event Deposit(address user, uint64 dealID, uint256 amount);
-    event Withdrawal(address user, uint64 dealID, uint256 amount);
-
     mapping(address => mapping(uint64 => uint256)) public balances;
     sFil internal immutable sFilToken;
+
+    event Deposit(address user, uint64 dealID, uint256 amount);
+    event Withdrawal(address user, uint64 dealID, uint256 amount);
 
     constructor() {
         sFilToken = new sFil();
