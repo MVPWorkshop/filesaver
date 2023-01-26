@@ -6,6 +6,9 @@ import "./sFil.sol";
 error InsufficientFunds();
 
 contract FileSaver {
+    event Deposit(address user, uint64 dealID, uint256 amount);
+    event Withdrawal(address user, uint64 dealID, uint256 amount);
+
     mapping(address => mapping(uint64 => uint256)) public balances;
     sFil internal immutable sFilToken;
 
@@ -19,6 +22,8 @@ contract FileSaver {
         sFilToken.mint(msg.sender, msg.value);
 
         balances[msg.sender][dealID] += msg.value;
+
+        emit Deposit(msg.sender, dealID, msg.value);
     }
 
     function withdraw(uint64 dealID, uint256 amount) external {
@@ -30,5 +35,7 @@ contract FileSaver {
 
         (bool success, ) = payable(msg.sender).call{value: amount}("");
         require(success, "Transfer failed.");
+
+        emit Withdrawal(msg.sender, dealID, amount);
     }
 }
