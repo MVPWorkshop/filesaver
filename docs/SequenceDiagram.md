@@ -19,7 +19,7 @@ sequenceDiagram
         Provider->>Filecoin Storage: file store
         Provider->>Filecoin Protocol: deal publishing
         Provider->>Filecoin EVM: provides deal info
-        Filecoin EVM->Filecoin Protocol: deal validation
+        Filecoin EVM .. Filecoin Protocol: deal validation
         Filecoin EVM->>Provider: payout
 
         User->Filecoin EVM: ...time elapses - new deal is needed...
