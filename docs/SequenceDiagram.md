@@ -18,11 +18,11 @@ sequenceDiagram
         Provider->>Filecoin Protocol: deal init
         Provider->>Filecoin Storage: file store
         Provider->>Filecoin Protocol: deal publishing
-        Provider->>Filecoin EVM: provides deal info
-        Filecoin EVM->Filecoin Protocol: deal validation
-        Filecoin EVM->>Provider: payout
+        Provider->>+Filecoin EVM: provides deal info
+        Filecoin EVM-->Filecoin Protocol: deal validation
+        Filecoin EVM->>-Provider: payout
 
-        User->Filecoin EVM: ...time elapses - new deal is needed...
+        User --> Filecoin EVM: ...time elapses - new deal is needed...
     end
 ```
 
@@ -46,9 +46,9 @@ sequenceDiagram
         Filecoin EVM->>Filecoin Protocol: deal init (2/2)
         Provider->>Filecoin Storage: file store
         Provider->>Filecoin Protocol: deal publishing
-        Filecoin Protocol->Filecoin EVM: authentication checks
+        Filecoin Protocol-->Filecoin EVM: authentication checks
         Provider->>Filecoin EVM: provides deal info and claims funds
 
-        User->Filecoin EVM: ...time elapses - new deal is needed...
+        User-->Filecoin EVM: ...time elapses - new deal is needed...
     end
 ```
