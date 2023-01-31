@@ -52,3 +52,32 @@ sequenceDiagram
         User-->Filecoin EVM: ...time elapses - new deal is needed...
     end
 ```
+
+### Version 0.1.2
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Provider
+    participant IPFS
+    participant Filecoin Storage
+    participant Filecoin Protocol
+    participant Filecoin EVM
+
+
+    User->>IPFS: file upload
+    User->>Filecoin EVM: sets storing terms (duration, price, no. of replicas)
+    IPFS->>Provider: file download + checks performed
+    Provider->>Filecoin EVM: reserves a spot for storing one replica
+
+    loop Deal Making
+        Provider->>Filecoin EVM: deal init (1/2)
+        Filecoin EVM->>Filecoin Protocol: deal init (2/2) [StorageMarketActor/AddBalance]
+        Provider->>Filecoin Storage: file store
+        Provider->>Filecoin Protocol: deal publishing
+        Filecoin Protocol-->Filecoin EVM: authentication checks
+        Provider->>Filecoin EVM: provides deal info and claims funds
+
+        User-->Filecoin EVM: ...time elapses - new deal is needed...
+    end
+```
