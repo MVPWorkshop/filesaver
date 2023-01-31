@@ -25,7 +25,6 @@ const DragAndDrop = () => {
     const onDrop = useCallback(async (acceptedFiles) => {
         // Do something with the files
         console.log({ acceptedFiles });
-        //TODO: IPFS upload
         console.log(await upload({ acceptedFiles }));
     }, []);
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
