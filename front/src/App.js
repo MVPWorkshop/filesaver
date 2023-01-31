@@ -35,7 +35,7 @@ const App = () => {
                     element={<Home stateManager={stateManager} />}
                 />
                 <Route
-                    path="/user"
+                    path="/user/:address"
                     element={<User stateManager={stateManager} />}
                 />
                 //TODO: all other paths redirect to `Home`

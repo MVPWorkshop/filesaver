@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 
 import * as utils from "../utils";
+import LoginButton from "./LoginButton";
 
 const shortAddress = (address) => {
     //creates a short string representation for a given `address`
@@ -27,6 +28,7 @@ const Navbar = ({ stateManager }) => {
                 <button
                     onClick={() => {
                         stateManager.resetState();
+                        utils.redirect("/");
                     }}
                 >
                     Log out
@@ -38,10 +40,7 @@ const Navbar = ({ stateManager }) => {
             <div className="Navbar">
                 <h2>Navbar</h2>
                 <NavigationOptions></NavigationOptions>
-
-                <button onClick={() => {} /*TODO: connect metamask*/}>
-                    Connect Wallet
-                </button>
+                <LoginButton stateManager={stateManager} />
             </div>
         );
     }

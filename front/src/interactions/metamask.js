@@ -1,12 +1,9 @@
 import { ethers } from "ethers";
 
-const delay = (delayInms = 1000) => {
-    return new Promise((resolve) => setTimeout(resolve, delayInms));
-};
-
+import * as utils from "../utils";
 const connect = async () => {
     //requests connection from the user's wallet and returns account info
-    await delay(50);
+    await utils.delay(50);
 
     if (window.ethereum == null) {
         return { err: "You need to install Metamask" };
