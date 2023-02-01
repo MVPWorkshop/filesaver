@@ -6,10 +6,11 @@ import Navbar from "./components/Navbar";
 
 import Home from "./pages/Home";
 import User from "./pages/User";
+import Feed from "./pages/Feed";
 
 import * as cfg from "./config";
 
-import "./style/App.css";
+import "./style/css/App.css";
 
 const App = () => {
     const [state, setState] = useState(cfg.DEFAULT_GLOBAL_APP_STATE);
@@ -37,6 +38,10 @@ const App = () => {
                 <Route
                     path="/user/:address"
                     element={<User stateManager={stateManager} />}
+                />
+                <Route
+                    path="/feed"
+                    element={<Feed stateManager={stateManager} />}
                 />
                 //TODO: all other paths redirect to `Home`
             </Routes>

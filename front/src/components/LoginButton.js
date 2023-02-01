@@ -15,13 +15,9 @@ const login = async ({ stateManager, navigate }) => {
 const LoginButton = ({ stateManager }) => {
     const navigate = useNavigate();
     return (
-        <div className="LoginButton">
-            <button
-                onClick={async () => await login({ stateManager, navigate })}
-            >
-                Connect Wallet
-            </button>
-        </div>
+        <button onClick={async () => await login({ stateManager, navigate })}>
+            Connect Wallet
+        </button>
     );
 };
 

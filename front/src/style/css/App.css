@@ -1,0 +1,47 @@
+.App {
+  text-align: center;
+}
+
+button {
+  margin: auto 0;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.Navbar {
+  display: flex;
+  padding: 5px 30px;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+}
+.Navbar .Logo {
+  text-decoration: underline;
+}
+.Navbar .Container {
+  display: flex;
+}
+.Navbar .NavOptions {
+  margin: auto 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.Navbar .NavOptions .Option {
+  flex: 1;
+  padding: 5px 10px;
+  border-bottom: 1px solid transparent;
+}
+.Navbar .NavOptions .Option:hover {
+  cursor: pointer;
+  border-color: black;
+}
+
+.FileList .Row {
+  display: flex;
+  width: 800px;
+  margin: 0 auto;
+}
+.FileList .Row .Entry {
+  padding: 5px 10px;
+  text-align: center;
+  flex: 1;
+}/*# sourceMappingURL=app.css.map */
