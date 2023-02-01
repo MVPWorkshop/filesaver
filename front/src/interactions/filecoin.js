@@ -37,4 +37,16 @@ const getFileList = async ({ userAddress }) => {
     };
 };
 
+const getFileInfo = async ({ cid }) => {
+    await utils.delay(700 * Math.random());
+
+    return {
+        name: "File01.sol",
+        status: "Active",
+        replicas: "2/2",
+        duration: "321 days",
+        download: "ipfs.io/...",
+    };
+};
+
 export { getFileList };

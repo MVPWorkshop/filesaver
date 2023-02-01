@@ -1,6 +1,8 @@
 import { ethers } from "ethers";
 
 import * as utils from "../utils";
+import * as cfg from "../config";
+
 const connect = async () => {
     //requests connection from the user's wallet and returns account info
     await utils.delay(50);
@@ -17,4 +19,10 @@ const connect = async () => {
     return { err: "", account };
 };
 
-export { connect };
+const fileUpload = async ({ cid, price, duration }) => {
+    await utils.delay(1250);
+
+    return { err: "" };
+};
+
+export { connect, fileUpload };

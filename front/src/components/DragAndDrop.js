@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
+
 import * as ipfs from "../interactions/ipfs";
+import * as metamask from "../interactions/metamask";
 
 const shortStr = (str) => {
     return `${str.slice(0, 10)}...${str.slice(str.length - 4)}`;
@@ -83,9 +85,15 @@ const DragAndDrop = () => {
                     </div>
                 </div>
                 <button
-                    onClick={async () =>
-                        await ipfs.upload({ files: state.files })
-                    }
+                    onClick={async () => {
+                        await ipfs.upload({ files: state.files });
+                        const { err } = await metamask.fileUpload({
+                            cid: "....",
+                        });
+                        if (err == "") {
+                            //sucessfull transaction
+                        }
+                    }}
                 >
                     Upload File
                 </button>
