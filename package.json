@@ -6,6 +6,10 @@
 		"hardhat": "^2.12.6"
 	},
 	"dependencies": {
-		"@openzeppelin/contracts": "^4.8.1"
+		"@openzeppelin/contracts": "^4.8.1",
+		"express": "^4.18.2",
+		"http": "^0.0.1-security",
+		"socket.io": "^4.5.4",
+		"socket.io-client": "^4.5.4"
 	}
 }
