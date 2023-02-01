@@ -41,12 +41,47 @@ button {
     .Row {
         display: flex;
         // justify-content: space-between;
-        width: 800px;
-        margin: 0 auto;
+        // width: 800px;
+        // margin: 0 auto;
         .Entry {
             padding: 5px 10px;
             text-align: center;
             flex: 1;
+        }
+    }
+}
+
+.DragAndDrop {
+    .Entry {
+        width: 450px;
+        display: flex;
+        justify-content: space-between;
+        .Label {
+            font-weight: 600;
+        }
+        .Value {
+            width: 250px;
+            display: flex;
+            justify-content: space-between;
+
+            .Selected {
+                text-align: center;
+                width: 100px;
+            }
+        }
+    }
+}
+
+.User {
+    .Container {
+        display: flex;
+        justify-content: space-between;
+        .DragAndDrop {
+            flex: 1;
+            margin: 50px 100px;
+        }
+        .FileList {
+            flex: 2;
         }
     }
 }

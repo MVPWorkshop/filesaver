@@ -37,11 +37,39 @@ button {
 
 .FileList .Row {
   display: flex;
-  width: 800px;
-  margin: 0 auto;
 }
 .FileList .Row .Entry {
   padding: 5px 10px;
   text-align: center;
   flex: 1;
+}
+
+.DragAndDrop .Entry {
+  width: 450px;
+  display: flex;
+  justify-content: space-between;
+}
+.DragAndDrop .Entry .Label {
+  font-weight: 600;
+}
+.DragAndDrop .Entry .Value {
+  width: 250px;
+  display: flex;
+  justify-content: space-between;
+}
+.DragAndDrop .Entry .Value .Selected {
+  text-align: center;
+  width: 100px;
+}
+
+.User .Container {
+  display: flex;
+  justify-content: space-between;
+}
+.User .Container .DragAndDrop {
+  flex: 1;
+  margin: 50px 100px;
+}
+.User .Container .FileList {
+  flex: 2;
 }/*# sourceMappingURL=app.css.map */

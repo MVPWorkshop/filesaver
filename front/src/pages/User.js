@@ -5,8 +5,10 @@ const User = ({ stateManager }) => {
     return (
         <div className="User">
             <h2>UserPage</h2>
-            <DragAndDrop></DragAndDrop>
-            <FileList></FileList>
+            <div className="Container">
+                <DragAndDrop></DragAndDrop>
+                <FileList></FileList>
+            </div>
         </div>
     );
 };
