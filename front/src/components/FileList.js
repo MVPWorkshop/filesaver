@@ -14,26 +14,37 @@ const Row = ({ values, bold }) => {
     );
 };
 
+let mutexTaken = false;
+
 const FileList = ({ stateManager }) => {
     const [state, setState] = useState({ loading: true, list: [] });
 
     const updateState = (newState) => setState({ ...state, ...newState });
 
     const periodicFcn = async () => {
-        updateState({ loading: true });
+        if (mutexTaken) {
+            return;
+        }
+        mutexTaken = true;
+        // updateState({ loading: true });
         const { fileList } = await filecoin.getUserFileList({
             userAddress: stateManager.state.userAddress,
         });
-        updateState({ loading: false, list: fileList });
+
+        console.log({ fileList });
+        if (state.list.length != fileList.length) {
+            updateState({ list: fileList });
+        }
+        mutexTaken = false;
+        setTimeout(periodicFcn, 10000);
     };
 
     useEffect(() => {
-        setInterval(periodicFcn, 4000);
+        periodicFcn();
     }, []);
 
     return (
         <div className="FileList">
-            <h3>FileList: {state.loading ? "loading..." : ""}</h3>
             <Row
                 bold={true}
                 values={[
