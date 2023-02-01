@@ -18,14 +18,17 @@ const FileList = ({ stateManager }) => {
     const [state, setState] = useState({ loading: true, list: [] });
 
     const updateState = (newState) => setState({ ...state, ...newState });
-    useEffect(async () => {
-        setInterval(async () => {
-            updateState({ loading: true });
-            const { fileList } = await filecoin.getFileList({
-                userAddress: stateManager.state.userAddress,
-            });
-            updateState({ loading: false, list: fileList });
-        }, 4000);
+
+    const periodicFcn = async () => {
+        updateState({ loading: true });
+        const { fileList } = await filecoin.getUserFileList({
+            userAddress: stateManager.state.userAddress,
+        });
+        updateState({ loading: false, list: fileList });
+    };
+
+    useEffect(() => {
+        setInterval(periodicFcn, 4000);
     }, []);
 
     return (

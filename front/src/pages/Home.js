@@ -1,3 +1,5 @@
+import FeedList from "../components/FeedList";
+
 import LoginButton from "../components/LoginButton";
 
 const Home = ({ stateManager }) => {
@@ -5,6 +7,8 @@ const Home = ({ stateManager }) => {
         <div className="Home">
             <h2>HomePage</h2>
             <LoginButton stateManager={stateManager}></LoginButton>
+
+            <FeedList></FeedList>
         </div>
     );
 };

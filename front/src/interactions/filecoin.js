@@ -1,52 +1,31 @@
 import * as utils from "../utils";
 
-const getFileList = async ({ userAddress }) => {
-    await utils.delay(1400);
+const _getFileInfo = async () => {
+    await utils.delay(400);
 
     return {
-        fileList: [
-            {
-                name: "File01.sol",
-                status: "Active",
-                replicas: "2/2",
-                duration: "321 days",
-                download: "ipfs.io/...",
-            },
-            {
-                name: "File02.sol",
-                status: "Active",
-                replicas: "1/2",
-                duration: "21 days",
-                download: "ipfs.io/...",
-            },
-            {
-                name: "File13.sol",
-                status: "Active",
-                replicas: "1/2",
-                duration: "321 days",
-                download: "ipfs.io/...",
-            },
-            {
-                name: "File01.sol",
-                status: "Pending",
-                replicas: "1/2",
-                duration: "31 days",
-                download: "ipfs.io/...",
-            },
-        ],
-    };
-};
-
-const getFileInfo = async ({ cid }) => {
-    await utils.delay(700 * Math.random());
-
-    return {
-        name: "File01.sol",
+        name: `File0${Math.floor(Math.random() * 100)}.sol`,
         status: "Active",
-        replicas: "2/2",
-        duration: "321 days",
+        replicas: `1/${Math.floor(Math.random() * 10)}`,
+        duration: `${Math.floor(Math.random() * 100)} days`,
         download: "ipfs.io/...",
     };
 };
 
-export { getFileList };
+const getUserFileList = async ({ userAddress }) => {
+    const fileList = await Promise.all(
+        [0, 1, 2, 3, 4].map(async (el) => await _getFileInfo())
+    );
+
+    return {
+        fileList,
+    };
+};
+
+const getFeedFileList = async () => {
+    await utils.delay(700 * Math.random());
+
+    return await getUserFileList({ userAddr: "..." });
+};
+
+export { getUserFileList, getFeedFileList };
