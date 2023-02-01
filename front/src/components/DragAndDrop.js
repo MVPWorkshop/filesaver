@@ -10,14 +10,14 @@ const DragAndDrop = () => {
     const [state, setState] = useState({
         files: [],
         fileName: null,
-        period: 6,
-        replicas: 1,
+        period: "6",
+        replicas: "1",
     });
 
     const updateState = (newState) => setState({ ...state, ...newState });
 
     const onDrop = useCallback(async (files) => {
-        setState({ fileName: files[0].name, files });
+        updateState({ fileName: files[0].name, files });
     }, []);
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
@@ -56,7 +56,6 @@ const DragAndDrop = () => {
                                 step="6"
                                 class="slider"
                                 id="myRange"
-                                value={state.period}
                                 onChange={(e) =>
                                     updateState({ period: e.target.value })
                                 }
@@ -68,14 +67,13 @@ const DragAndDrop = () => {
                 <div className="Entry">
                     <div className="Label">Number of Replicas</div>
                     <div className="Value">
-                        <div className="slidecontainer">
+                        <div className="slidecontainer2">
                             <input
                                 type="range"
                                 min="1"
                                 max="15"
-                                value={state.replicas}
                                 class="slider"
-                                id="myRange"
+                                id="myRange2"
                                 onChange={(e) =>
                                     updateState({ replicas: e.target.value })
                                 }

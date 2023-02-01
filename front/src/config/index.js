@@ -1,3 +1,7 @@
+const CONTRACT_ARTIFACTS = {};
+
+const CONTRACT_ADDRESSES = {};
+
 const DEFAULT_GLOBAL_APP_STATE = {
     userAccount: null,
     uploadInfo: {
@@ -9,4 +13,4 @@ const DEFAULT_GLOBAL_APP_STATE = {
     },
 };
 
-export { DEFAULT_GLOBAL_APP_STATE };
+export { CONTRACT_ARTIFACTS, CONTRACT_ADDRESSES, DEFAULT_GLOBAL_APP_STATE };

@@ -7,7 +7,7 @@ const User = ({ stateManager }) => {
             <h2>UserPage</h2>
             <div className="Container">
                 <DragAndDrop></DragAndDrop>
-                <FileList></FileList>
+                <FileList stateManager={stateManager}></FileList>
             </div>
         </div>
     );
