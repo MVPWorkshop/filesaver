@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar";
 
 import Home from "./pages/Home";
 import User from "./pages/User";
-import Feed from "./pages/Feed";
+import File from "./pages/File";
 
 import * as cfg from "./config";
 
@@ -39,8 +39,8 @@ const App = () => {
                     element={<User stateManager={stateManager} />}
                 />
                 <Route
-                    path="/feed"
-                    element={<Feed stateManager={stateManager} />}
+                    path="/file/:cid"
+                    element={<File stateManager={stateManager} />}
                 />
                 //TODO: all other paths redirect to `Home`
             </Routes>

@@ -3,7 +3,7 @@ import FileList from "../components/FileList";
 
 const User = ({ stateManager }) => {
     return (
-        <div className="User">
+        <div className="Page User">
             <div className="Container">
                 <DragAndDrop></DragAndDrop>
                 <div className="FileListContainer">

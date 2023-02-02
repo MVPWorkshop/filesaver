@@ -4,7 +4,7 @@ import LoginButton from "../components/LoginButton";
 
 const Home = ({ stateManager }) => {
     return (
-        <div className="Home">
+        <div className="Page Home">
             <div className="Moto">
                 <h1 className="Title">FileSaver</h1>
                 <h3 className="SubTitle">
