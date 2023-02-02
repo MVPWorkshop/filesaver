@@ -39,6 +39,10 @@ class SocketModule {
     static sendAddressConfirmation(sp_socket_id, sp_address) {
         io.to(sp_socket_id).emit('fs-confirm-address', sp_address);
     }
+
+    static sendApplicationResponse(sp_socket_id, response) {
+        io.to(sp_socket_id).emit('fs-application-response', response);
+    }
 }
 
 export default SocketModule;

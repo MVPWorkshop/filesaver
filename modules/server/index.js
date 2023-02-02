@@ -2,14 +2,35 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 import { app, http } from '../api.js';
 import multiparty from 'multiparty';
+import * as constants from '../constants.js';
 
 const port = process.env.SERVER_PORT || 3000;
-
 
 import SocketModule from './socket.js';
 
 let addresses = {};
 let ids = {};
+
+const offers = JSON.parse(fs.readFileSync('./offers.json'));
+
+// Helper functions 
+function storeOfferData(offer_cid, offer_price, offer_duration, offer_size, offer_replications) {
+    const offerData = {
+        offer_price,
+        offer_duration,
+        offer_size,
+        required_replications: offer_replications,
+        accepted_applications: [],
+    }
+
+    offers[offer_cid] = offerData;
+    fs.writeFileSync('./offers.json', JSON.stringify(offers, null, 4));
+}
+
+function saveOfferApplicant(offer_cid, sp_address) {
+    offers[offer_cid].accepted_applications.push(sp_address);
+    fs.writeFileSync('./offers.json', JSON.stringify(offers, null, 4));
+}
 
 function createDealWithStorageProvider(socket, offer_cid, sp_address) {
 
@@ -24,7 +45,10 @@ app.post('/store', (req, res) => {
         const offer_cid = fields.cid[0];
         const offer_price = fields.value[0];
         const offer_size = fields.size[0];
+        const offer_replications = parseInt(fields.replications[0]);
         const offer_duration = fields.duration[0];
+
+        storeOfferData(offer_cid, offer_price, offer_duration, offer_size, offer_replications)
 
         SocketModule.broadcastStorageOffer(offer_cid, offer_price, offer_size, offer_duration)
 
@@ -53,7 +77,20 @@ SocketModule.on('connection', async (socket) => {
         let { address: sp_address, offer_cid } = data;
         console.log(`User ${sp_address} is applying for offer ${offer_cid}`);
 
-        createDealWithStorageProvider(socket, offer_cid, sp_address)
+        const offer_data = offers[offer_cid];
+
+        const response = {
+            status: constants.APPLICATION_RESPONSE.REJECTED,
+            offer_cid,
+        }
+        if (offer_data.required_replications >= offer_data.accepted_applications.length) {
+            response.status = constants.APPLICATION_RESPONSE.REJECTED;
+        } else {
+            saveOfferApplicant(offer_cid, sp_address);
+            response.status = constants.APPLICATION_RESPONSE.ACCEPTED;
+        }
+
+        SocketModule.sendApplicationResponse(socket.client.id, response);
     });
 
     socket.on('disconnect', () => {

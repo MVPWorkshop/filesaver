@@ -9,3 +9,8 @@ typechain-types
 cache
 artifacts
 
+# Filesaver cache files
+/modules/service-provider/savedFiles/*
+/modules/service-provider/deals.json
+/modules/service-provider/offers.json
+modules/server/offers.json

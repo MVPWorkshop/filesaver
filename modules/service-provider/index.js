@@ -1,6 +1,8 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
-import fs from 'fs';
+import * as fs from 'fs';
+import { URL } from 'url';
+const __dirname = new URL('.', import.meta.url).pathname;
 import { create, globSource } from 'ipfs';
 const ipfs = await create();
 import { io } from 'socket.io-client'
@@ -8,11 +10,57 @@ const socket = io.connect(`http://localhost:${process.env.SERVER_PORT}`, { recon
 
 import { http } from '../api.js';
 import * as constants from '../constants.js';
+import { exit } from 'process';
 
 const address = process.env.SP_ADDRESS;
 const port = process.env.SP_PORT;
 
-// Helper functions 
+// Load saved offers
+const offersPath = `${__dirname}offers.json`
+const dealsPath = `${__dirname}deals.json`
+const offers = JSON.parse(fs.readFileSync(offersPath));
+const deals = JSON.parse(fs.readFileSync(dealsPath));
+
+// Helper functions
+function storeOffers() {
+    fs.writeFileSync(offersPath, JSON.stringify(offers, null, 4));
+}
+function storeDeals() {
+    fs.writeFileSync(dealsPath, JSON.stringify(offers, null, 4));
+}
+
+function saveOfferData(offer_cid, offer_price, offer_duration, offer_size) {
+    const offerData = {
+        offer_price,
+        offer_duration,
+        offer_size,
+    }
+
+    offers[offer_cid] = offerData;
+    storeOffers();
+}
+
+function deleteOfferData(offer_cid) {
+    delete offers[offer_cid];
+    storeOffers();
+}
+
+function saveStorageDealData(offer_cid) {
+    const storageDealData = {
+        deal_price_per_cycle,
+        deal_duration_per_cycle,
+        cycle_expiration_timestamp,
+    }
+    deals[offer_cid] = storageDealData;
+    storeDeals();
+}
+
+function deleteStorageDealData(offer_cid) {
+    delete deals[offer_cid];
+    storeDeals();
+}
+
+
 function checkOfferCriteria(offer_price, offer_length, offer_size) {
     // Future Feature: Add checking service provider criteria
     return true;
@@ -37,21 +85,21 @@ socket.on('fs-offer', async (data) => {
         return;
     }
 
-    //TODO Download file from IPFS
     const file = await ipfs.get(offer_cid);
-    fs.writeFileSync(`./savedFiles/${offer_cid}`, file);
 
-    //TOOD Store data about offer
+    // TODO Save file downloaded from IPFS 
+    // fs.writeFileSync(`./savedFiles/${offer_cid}`, file);
 
-    //TODO send application to server
+    saveOfferData(offer_cid, offer_price, offer_duration, offer_size)
 
     applyForOffer(socket, offer_cid);
 })
 
 socket.on('fs-application-response', data => {
-    if (data.status === constants.APPLICATION_RESPONSE.REJECTED) {
-        console.log(`Application for offer ${data.offer_cid} rejected, removing offer`);
-        // TOOD Remove offer data
+    const { offer_cid, status } = data;
+    if (status === constants.APPLICATION_RESPONSE.REJECTED) {
+        console.log(`Application for offer ${offer_cid} rejected, removing offer`);
+        deleteOfferData(offer_cid);
     }
 
     if (data.status !== constants.APPLICATION_RESPONSE.ACCEPTED) {
@@ -59,6 +107,7 @@ socket.on('fs-application-response', data => {
     }
 
     //TOOD Store data about offer
+    saveStorageDealData()
 
     //TODO Call blockchain function to create deal
 });
