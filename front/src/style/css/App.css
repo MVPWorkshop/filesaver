@@ -96,6 +96,14 @@ button {
   color: white;
   padding: 10px 20px;
   border-radius: 5px;
+  font-weight: 300;
+}
+.Navbar .UserBalance {
+  background-color: rgb(246, 246, 246);
+  color: black;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-right: 5px;
 }
 .Navbar .LogOutButton {
   padding: 10px 20px;
@@ -447,9 +455,27 @@ button {
   font-weight: 600;
   padding-right: 5px;
 }
-.File .MainFileCard button {
-  margin-top: 30px;
+.File .MainFileCard .Donation {
+  margin-top: 40px;
+  display: flex;
+  align-content: right;
+  margin-right: 0;
+}
+.File .MainFileCard .Donation .Entry {
+  padding-top: 15px;
+}
+.File .MainFileCard .Donation .Entry .Value {
+  display: flex;
+}
+.File .MainFileCard .Donation .Entry .Selected {
+  width: 80px;
+  font-size: 22px;
+  margin-top: -4px;
+  text-align: center;
+}
+.File .MainFileCard .Donation button {
   width: 200px;
+  margin-left: 5px;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {

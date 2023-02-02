@@ -101,6 +101,14 @@ button {
         color: white;
         padding: 10px 20px;
         border-radius: 5px;
+        font-weight: 300;
+    }
+    .UserBalance {
+        background-color: rgb(246, 246, 246);
+        color: black;
+        padding: 10px 20px;
+        border-radius: 5px;
+        margin-right: 5px;
     }
     .LogOutButton {
         padding: 10px 20px;
@@ -485,9 +493,28 @@ button {
                 padding-right: 5px;
             }
         }
-        button {
-            margin-top: 30px;
-            width: 200px;
+
+        .Donation {
+            margin-top: 40px;
+            display: flex;
+            align-content: right;
+            margin-right: 0;
+            .Entry {
+                padding-top: 15px;
+                .Value {
+                    display: flex;
+                }
+                .Selected {
+                    width: 80px;
+                    font-size: 22px;
+                    margin-top: -4px;
+                    text-align: center;
+                }
+            }
+            button {
+                width: 200px;
+                margin-left: 5px;
+            }
         }
     }
 }

@@ -45,6 +45,8 @@ const Navbar = ({ stateManager }) => {
                 <Logo></Logo>
                 <div className="Container">
                     <NavOptions stateManager={stateManager}></NavOptions>
+
+                    <h4 className="UserBalance">{231.2} FIL</h4>
                     <h4 className="UserAddress">
                         {shortAddress(stateManager.state.userAccount)}
                     </h4>

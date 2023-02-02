@@ -11,7 +11,10 @@ const MainFileCard = () => {
         name: null,
         status: null,
         replicas: null,
+        amount: 0,
     });
+
+    const updateState = (newState) => setState({ ...state, ...newState });
 
     return (
         <div className="MainFileCard">
@@ -52,6 +55,27 @@ const MainFileCard = () => {
                 </div>
             </div>
             <div className="Donation">
+                <div className="Entry">
+                    <div className="Label">Amount:</div>
+                    <div className="Value">
+                        <div className="slidecontainer">
+                            <input
+                                type="range"
+                                min="6"
+                                max="240"
+                                step="6"
+                                class="slider"
+                                id="myRange"
+                                onChange={(e) =>
+                                    updateState({ amount: e.target.value })
+                                }
+                            />
+                        </div>
+                        <div className="Selected">
+                            <strong>{`${state.amount} FIL`}</strong>
+                        </div>
+                    </div>
+                </div>
                 <button>Donate</button>
             </div>
         </div>
