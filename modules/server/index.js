@@ -1,5 +1,8 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
+import * as fs from 'fs';
+import { URL } from 'url';
+const __dirname = new URL('.', import.meta.url).pathname;
 import { app, http } from '../api.js';
 import multiparty from 'multiparty';
 import * as constants from '../constants.js';
@@ -11,10 +14,15 @@ import SocketModule from './socket.js';
 let addresses = {};
 let ids = {};
 
-const offers = JSON.parse(fs.readFileSync('./offers.json'));
+const offersPath = `${__dirname}offers.json`
+const offers = JSON.parse(fs.readFileSync(offersPath));
 
 // Helper functions 
-function storeOfferData(offer_cid, offer_price, offer_duration, offer_size, offer_replications) {
+function storeOffers() {
+    fs.writeFileSync(offersPath, JSON.stringify(offers, null, 4));
+}
+
+function saveOfferData(offer_cid, offer_price, offer_duration, offer_size, offer_replications) {
     const offerData = {
         offer_price,
         offer_duration,
@@ -24,16 +32,12 @@ function storeOfferData(offer_cid, offer_price, offer_duration, offer_size, offe
     }
 
     offers[offer_cid] = offerData;
-    fs.writeFileSync('./offers.json', JSON.stringify(offers, null, 4));
+    storeOffers();
 }
 
 function saveOfferApplicant(offer_cid, sp_address) {
     offers[offer_cid].accepted_applications.push(sp_address);
-    fs.writeFileSync('./offers.json', JSON.stringify(offers, null, 4));
-}
-
-function createDealWithStorageProvider(socket, offer_cid, sp_address) {
-
+    storeOffers();
 }
 
 // API Calls
@@ -48,7 +52,7 @@ app.post('/store', (req, res) => {
         const offer_replications = parseInt(fields.replications[0]);
         const offer_duration = fields.duration[0];
 
-        storeOfferData(offer_cid, offer_price, offer_duration, offer_size, offer_replications)
+        saveOfferData(offer_cid, offer_price, offer_duration, offer_size, offer_replications)
 
         SocketModule.broadcastStorageOffer(offer_cid, offer_price, offer_size, offer_duration)
 

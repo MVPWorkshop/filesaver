@@ -106,10 +106,11 @@ socket.on('fs-application-response', data => {
         throw Error(`Unexpected application response status ${data.status}`);
     }
 
-    //TOOD Store data about offer
-    saveStorageDealData()
+    // TODO Calculate storage deal information per cycle
+    saveStorageDealData(offer_cid)
 
     //TODO Call blockchain function to create deal
+
 });
 
 socket.on('fs-application-rejected')
