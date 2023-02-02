@@ -61,11 +61,11 @@ const MainFileCard = () => {
                         <div className="slidecontainer">
                             <input
                                 type="range"
-                                min="6"
-                                max="240"
-                                step="6"
+                                min="1"
+                                step="1"
                                 class="slider"
                                 id="myRange"
+                                value={state.amount}
                                 onChange={(e) =>
                                     updateState({ amount: e.target.value })
                                 }
