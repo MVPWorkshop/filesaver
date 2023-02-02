@@ -11,7 +11,7 @@ const shortAddress = (address) => {
 const Logo = () => {
     return (
         <div className="Logo">
-            <h3>FileSaver</h3>
+            <h3>FILESAVER</h3>
         </div>
     );
 };

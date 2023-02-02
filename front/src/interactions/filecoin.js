@@ -14,7 +14,7 @@ const _getFileInfo = async () => {
 
 const getUserFileList = async ({ userAddress }) => {
     const fileList = await Promise.all(
-        [0, 1, 2, 3, 4].map(async (el) => await _getFileInfo())
+        [0, 1, 2].map(async (el) => await _getFileInfo())
     );
 
     return {

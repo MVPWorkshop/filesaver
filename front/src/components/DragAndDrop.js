@@ -4,6 +4,8 @@ import { useDropzone } from "react-dropzone";
 import * as ipfs from "../interactions/ipfs";
 import * as metamask from "../interactions/metamask";
 
+import * as cfg from "../config";
+
 const shortStr = (str) => {
     return `${str.slice(0, 10)}...${str.slice(str.length - 4)}`;
 };
@@ -29,26 +31,21 @@ const DragAndDrop = () => {
         return (
             <div className="DragAndDrop" {...getRootProps()}>
                 <input {...getInputProps()} />
-                {isDragActive ? (
-                    <p>Drop the files here ...</p>
-                ) : (
-                    <p>
-                        Drag 'n' drop some files here, or click to select files
-                    </p>
-                )}
+                <img src={cfg.IMAGES.addFile}></img>
+                <button>Drop Your File</button>
             </div>
         );
     } else {
         return (
             <div className="DragAndDrop">
                 <div className="Entry">
-                    <div className="Label">File</div>
+                    <div className="Label">File:</div>
                     <div className="Value">
                         <div className="X">{`${shortStr(state.fileName)}`}</div>
                     </div>
                 </div>
                 <div className="Entry">
-                    <div className="Label">Time Period</div>
+                    <div className="Label">Period:</div>
                     <div className="Value">
                         <div className="slidecontainer">
                             <input
@@ -67,9 +64,9 @@ const DragAndDrop = () => {
                     </div>
                 </div>
                 <div className="Entry">
-                    <div className="Label">Number of Replicas</div>
+                    <div className="Label">Replicas:</div>
                     <div className="Value">
-                        <div className="slidecontainer2">
+                        <div className="slidecontainer">
                             <input
                                 type="range"
                                 min="1"
@@ -84,6 +81,22 @@ const DragAndDrop = () => {
                         <div className="Selected">{state.replicas}</div>
                     </div>
                 </div>
+                <div className="Entry">
+                    <div className="Label">Providers:</div>
+                    <div className="Value">
+                        <img
+                            className="Selected"
+                            src={cfg.IMAGES.providerImage}
+                        ></img>
+                    </div>
+                </div>
+                <div className="Entry">
+                    <div className="Label">Price:</div>
+                    <div className="Value">
+                        <b>~13.4 FIL</b>
+                    </div>
+                </div>
+
                 <button
                     onClick={async () => {
                         await ipfs.upload({ files: state.files });
@@ -92,6 +105,7 @@ const DragAndDrop = () => {
                         });
                         if (err == "") {
                             //sucessfull transaction
+                            updateState({ fileName: null });
                         }
                     }}
                 >

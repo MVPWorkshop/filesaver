@@ -28,7 +28,6 @@ const App = () => {
     return (
         <div className="App">
             <Navbar stateManager={stateManager}></Navbar>
-            <h1>FileSaver</h1>
 
             <Routes>
                 <Route

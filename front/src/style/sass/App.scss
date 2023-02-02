@@ -1,10 +1,42 @@
 .App {
     text-align: center;
+    margin: 0 auto;
 }
 
 button {
-    margin: auto 0;
-    padding: 10px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    width: min-content; /* 134px */
+    height: 40px;
+    margin: 0 1vmin;
+    padding: 15px 15px 15px 15px;
+    box-shadow: 0px 0.7079948583634852px 0.7079948583634852px -0.625px rgba(0, 0, 0, 0.15),
+        0px 1.8096906216668867px 1.8096906216668867px -1.25px rgba(0, 0, 0, 0.14397),
+        0px 3.6205156475884093px 3.6205156475884093px -1.875px rgba(0, 0, 0, 0.13793),
+        0px 6.870631714892718px 6.870631714892718px -2.5px rgba(0, 0, 0, 0.1271),
+        0px 13.644368889910274px 13.644368889910274px -3.125px rgba(0, 0, 0, 0.10452),
+        0px 30px 30px -3.75px rgba(0, 0, 0, 0.05);
+    background-color: #222222;
+    overflow: visible;
+    position: relative;
+    align-content: center;
+    flex-wrap: nowrap;
+    gap: 10;
+    border-radius: 8px;
+    /* button text */
+    /* flex-shrink: 0; */
+    width: auto; /* 104px */
+    height: auto; /* 17px */
+    white-space: pre;
+    position: relative;
+    font-weight: 600;
+    font-style: normal;
+    font-family: "Inter", sans-serif;
+    color: #ffffff;
+    font-size: calc(7px + 1vmin);
+    letter-spacing: 0px;
+    line-height: 1.2;
+    text-align: center;
     cursor: pointer;
 }
 
@@ -13,8 +45,34 @@ button {
     padding: 5px 30px;
     justify-content: space-between;
     border-bottom: 1px solid black;
+    box-sizing: border-box;
+    width: 100%;
+    height: 80px;
+    font-size: calc(8px + 1vmin);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 24px 24px 24px;
+    background-color: #ffffff;
+    align-content: center;
+    flex-wrap: nowrap;
+    gap: 24;
+    border-radius: 0px 0px 0px 0px;
+    border-color: rgba(0, 0, 0, 0.08);
+    border-style: solid;
+    border-top-width: 0px;
+    border-bottom-width: 1px;
+    border-left-width: 0px;
+    border-right-width: 0px;
     .Logo {
-        text-decoration: underline;
+        // text-decoration: underline;
+        display: flex;
+        flex: 1 0 0px;
+        margin: 0 1vmin;
+        font-size: calc(8px + 2vmin);
+        overflow: visible;
+        flex-wrap: nowrap;
     }
     .Container {
         display: flex;
@@ -38,29 +96,172 @@ button {
 }
 
 .FileList {
-    .Row {
+    box-sizing: border-box;
+    flex-shrink: 0;
+
+    // height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-shadow: 0px 0.796841278193901px 2.3905238345817033px -0.625px rgba(0, 0, 0, 0.05),
+        0px 2.413677098392273px 7.2410312951768185px -1.25px rgba(0, 0, 0, 0.05),
+        0px 6.3802836426702925px 19.140850928010877px -1.875px rgba(0, 0, 0, 0.05),
+        0px 20px 60px -2.5px rgba(185, 185, 185, 0.05);
+    background-color: #ffffff;
+    position: relative;
+    align-content: center;
+    border-radius: 10px;
+    margin: 0 50px;
+
+    .FirstRow {
+        width: 100%;
         display: flex;
-        // justify-content: space-between;
-        // width: 800px;
-        // margin: 0 auto;
+        justify-content: space-between;
+        padding: 20px 0;
+        background-color: #ededed;
+        border-radius: 10px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        text-align: center;
         .Entry {
-            padding: 5px 10px;
-            text-align: center;
             flex: 1;
+        }
+    }
+
+    .Row {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #ededed;
+        text-align: center;
+        height: 50px;
+        vertical-align: middle;
+
+        .Entry {
+            flex: 1;
+            .Value {
+                padding-top: 10px;
+            }
+            img {
+                width: 50px;
+                height: 50px;
+                margin-top: -13px;
+                cursor: pointer;
+                &:hover {
+                    opacity: 0.5;
+                }
+            }
+        }
+    }
+}
+
+.FeedList {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 150px;
+    .FeedListCard {
+        margin: 20px;
+        box-sizing: border-box;
+        flex-shrink: 0;
+        width: 320px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 30px 30px 30px 30px;
+        box-shadow: 0px 0.796841278193901px 2.3905238345817033px -0.625px rgba(0, 0, 0, 0.05),
+            0px 2.413677098392273px 7.2410312951768185px -1.25px rgba(0, 0, 0, 0.05),
+            0px 6.3802836426702925px 19.140850928010877px -1.875px rgba(0, 0, 0, 0.05),
+            0px 20px 60px -2.5px rgba(0, 0, 0, 0.05);
+        background-color: #ffffff;
+        position: relative;
+        align-content: center;
+        flex-wrap: nowrap;
+        gap: 30;
+        border-radius: 20px;
+        padding: 40px;
+        .Title {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            img {
+                width: 50px;
+                height: 50px;
+                padding-right: 10px;
+            }
+            .Info {
+                flex: 1;
+                text-align: left;
+                .Name {
+                    font-weight: 800;
+                    padding: 2px;
+                }
+                .CID {
+                    color: gray;
+                }
+            }
+            padding-bottom: 30px;
+        }
+
+        .Entry {
+            width: 100%;
+            display: flex;
+            font-weight: 400;
+            color: rgb(28, 28, 28);
+            padding: 3px;
+            .Label {
+                font-weight: 600;
+                padding-right: 5px;
+            }
+        }
+        button {
+            margin-top: 30px;
+            width: 200px;
         }
     }
 }
 
 .DragAndDrop {
+    box-sizing: border-box;
+    flex-shrink: 0;
+    width: 320px;
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-shadow: 0px 0.796841278193901px 2.3905238345817033px -0.625px rgba(0, 0, 0, 0.05),
+        0px 2.413677098392273px 7.2410312951768185px -1.25px rgba(0, 0, 0, 0.05),
+        0px 6.3802836426702925px 19.140850928010877px -1.875px rgba(0, 0, 0, 0.05),
+        0px 20px 60px -2.5px rgba(0, 0, 0, 0.05);
+    background-color: #ffffff;
+    position: relative;
+    align-content: center;
+    border-radius: 20px;
+    padding: 80px 0px;
+
+    img {
+        width: 80px;
+        height: 80px;
+    }
+    button {
+        margin-top: 50px;
+    }
     .Entry {
-        width: 450px;
+        width: 80%;
+        padding: 10px 0;
         display: flex;
         justify-content: space-between;
         .Label {
             font-weight: 600;
+            flex: 1;
+            text-align: left;
         }
         .Value {
-            width: 250px;
+            flex: 1;
             display: flex;
             justify-content: space-between;
 
@@ -68,20 +269,108 @@ button {
                 text-align: center;
                 width: 100px;
             }
+            .slidecontainer input {
+                width: 60px;
+            }
+            img {
+                height: 100%;
+            }
+        }
+    }
+}
+
+.Home {
+    .Moto {
+        flex-shrink: 0;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        word-break: break-word;
+        overflow: visible;
+        font-weight: 500;
+        font-style: normal;
+        font-family: "Inter", sans-serif;
+        color: #888888;
+        font-size: calc(10px + 1.8vmin);
+        letter-spacing: -0.5px;
+        line-height: 1.5;
+        margin: 30px auto;
+        margin-top: -2%;
+        padding: 200px;
+        padding-bottom: 50px;
+        .Title {
+            flex-shrink: 0;
+            width: auto; /* 202px */
+            height: auto; /* 60px */
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            word-break: break-word;
+            max-width: 100%;
+            position: relative;
+            font-weight: 700;
+            font-style: normal;
+            font-family: "Inter", sans-serif;
+            color: #333333;
+            font-size: 50px;
+            letter-spacing: -2.6px;
+            line-height: 1.2;
+            text-align: center;
+        }
+        .SubTitle {
+            flex-shrink: 0;
+            // width: 390px;
+            height: auto; /* 72px */
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            word-break: break-word;
+            max-width: 100%;
+            overflow: visible;
+            position: relative;
+            font-weight: 500;
+            font-style: normal;
+            font-family: "Inter", sans-serif;
+            color: #888888;
+            font-size: 24px;
+            letter-spacing: -0.5px;
+            line-height: 1.5;
+            text-align: center;
+        }
+    }
+    .FeedListContainer {
+        padding-top: 50px;
+        .PromoText {
+            flex-shrink: 0;
+            width: auto; /* 482px */
+            height: auto; /* 58px */
+            white-space: pre;
+            position: relative;
+            font-weight: 600;
+            font-style: normal;
+            font-family: "Inter", sans-serif;
+            color: #777777;
+            font-size: 48px;
+            letter-spacing: 0px;
+            line-height: 1.2;
+            text-align: center;
+            font-weight: 400;
         }
     }
 }
 
 .User {
+    margin-top: 75px;
     .Container {
         display: flex;
         justify-content: space-between;
         .DragAndDrop {
-            flex: 1;
-            margin: 50px 100px;
+            margin: 0px 100px;
         }
         .FileList {
             flex: 2;
         }
     }
+}
+
+.FileListContainer {
+    width: 100%;
+    text-align: left;
 }

@@ -3,10 +3,24 @@ import { useEffect, useState } from "react";
 import * as filecoin from "../interactions/filecoin";
 
 const Row = ({ values, bold }) => {
-    const embed = (val) => (bold ? <strong>{val}</strong> : <div>{val}</div>);
+    const embed = (val) =>
+        bold ? <strong>{val}</strong> : <div className="Value">{val}</div>;
 
     return (
         <div className="Row">
+            {values.map((el) => {
+                return <div className="Entry">{embed(el)}</div>;
+            })}
+        </div>
+    );
+};
+
+const FirstRow = ({ values, bold }) => {
+    const embed = (val) =>
+        bold ? <strong>{val}</strong> : <div className="Value">{val}</div>;
+
+    return (
+        <div className="FirstRow">
             {values.map((el) => {
                 return <div className="Entry">{embed(el)}</div>;
             })}
@@ -45,7 +59,7 @@ const FileList = ({ stateManager }) => {
 
     return (
         <div className="FileList">
-            <Row
+            <FirstRow
                 bold={true}
                 values={[
                     "File Name",
@@ -54,7 +68,7 @@ const FileList = ({ stateManager }) => {
                     "Duration",
                     "Download",
                 ]}
-            ></Row>
+            ></FirstRow>
             {state.list.map((el) => (
                 <Row
                     values={[
@@ -62,7 +76,7 @@ const FileList = ({ stateManager }) => {
                         el.status,
                         el.replicas,
                         el.duration,
-                        el.download,
+                        <img src="https://static.thenounproject.com/png/3554029-200.png" />,
                     ]}
                 ></Row>
             ))}
