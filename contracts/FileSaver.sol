@@ -38,4 +38,8 @@ contract FileSaver {
 
         emit Withdrawal(msg.sender, dealID, amount);
     }
+
+    function createDealProposal(uint256 _time, uint256 _numberOfReplicas, uint256 _price) external payable {
+
+    }
 }
