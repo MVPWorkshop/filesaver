@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import * as filecoin from "../interactions/filecoin";
+import * as ipfs from "../interactions/ipfs";
+
+import * as cfg from "../config";
 
 const Row = ({ values, bold }) => {
     const embed = (val) =>
@@ -85,7 +88,13 @@ const FileList = ({ stateManager }) => {
                         el.status,
                         el.replicas,
                         el.duration,
-                        <img src="https://static.thenounproject.com/png/3554029-200.png" />,
+                        <Link
+                            onClick={async () =>
+                                await ipfs.download({ cid: "..." })
+                            }
+                        >
+                            <img src={cfg.IMAGES.downloadButton}></img>
+                        </Link>,
                     ]}
                 ></Row>
             ))}

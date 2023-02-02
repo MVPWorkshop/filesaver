@@ -93,7 +93,10 @@ const DragAndDrop = () => {
                 <div className="Entry">
                     <div className="Label">Price:</div>
                     <div className="Value">
-                        <b>~13.4 FIL</b>
+                        <b>{`~${cfg.UPLOAD_PRICE_CALCULATION({
+                            period: state.period,
+                            replicas: state.replicas,
+                        })} sFIL`}</b>
                     </div>
                 </div>
 
