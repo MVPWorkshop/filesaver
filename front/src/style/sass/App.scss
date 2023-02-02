@@ -73,6 +73,9 @@ button {
         font-size: calc(8px + 2vmin);
         overflow: visible;
         flex-wrap: nowrap;
+        h3 {
+            cursor: pointer;
+        }
     }
     .Container {
         display: flex;
@@ -92,6 +95,19 @@ button {
                 border-color: black;
             }
         }
+    }
+    .UserAddress {
+        background-color: black;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+    }
+    .LogOutButton {
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: 1px solid black;
+        margin-left: 20px;
+        cursor: pointer;
     }
 }
 
@@ -154,6 +170,10 @@ button {
                 }
             }
         }
+    }
+    .FileLink {
+        font-weight: 600;
+        cursor: pointer;
     }
 }
 
@@ -343,6 +363,19 @@ button {
             text-align: center;
         }
     }
+
+    .LoggedInMessage {
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        width: 150px;
+        margin: 0 auto;
+        .Link {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+
     .FeedListContainer {
         padding-top: 50px;
         .PromoText {
@@ -361,6 +394,10 @@ button {
             text-align: center;
             font-weight: 400;
         }
+    }
+
+    .FixedContainer {
+        height: 100px;
     }
 }
 
@@ -452,5 +489,32 @@ button {
             margin-top: 30px;
             width: 200px;
         }
+    }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    input[type="range"] {
+        overflow: hidden;
+        -webkit-appearance: none;
+        background-color: black;
+        border-radius: 2px;
+        border: 1px solid black;
+        cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-runnable-track {
+        height: 10px;
+        -webkit-appearance: none;
+        color: white;
+        margin-top: -1px;
+        border-radius: 2px;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+        width: 15px;
+        -webkit-appearance: none;
+        height: 15px;
+        cursor: ew-resize;
+        background: white;
+        color: white;
+        border-radius: 2px;
     }
 }

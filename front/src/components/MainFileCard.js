@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 
 import * as filecoin from "../interactions/filecoin";
+import * as ipfs from "../interactions/ipfs";
 
 import * as cfg from "../config";
 
@@ -19,7 +21,9 @@ const MainFileCard = () => {
                     <div className="Name">{state.name}</div>
                     <div className="CID">{`0x31....323`}</div>
                 </div>
-                <img src={cfg.IMAGES.downloadButton}></img>
+                <Link onClick={async () => await ipfs.download({ cid: "..." })}>
+                    <img src={cfg.IMAGES.downloadButton}></img>
+                </Link>
             </div>
             <div className="Container">
                 <div className="Info">

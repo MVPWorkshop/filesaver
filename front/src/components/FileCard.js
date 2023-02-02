@@ -1,5 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
+import * as ipfs from "../interactions/ipfs";
 import * as cfg from "../config";
 
 const FileCard = ({ props }) => {
@@ -23,7 +24,9 @@ const FileCard = ({ props }) => {
                     <div className="Name">{name}</div>
                     <div className="CID">{`0x31....323`}</div>
                 </div>
-                <img src={cfg.IMAGES.downloadButton}></img>
+                <Link onClick={async () => await ipfs.download({ cid: "..." })}>
+                    <img src={cfg.IMAGES.downloadButton}></img>
+                </Link>
             </div>
 
             <div className="Entry">

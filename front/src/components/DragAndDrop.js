@@ -72,7 +72,7 @@ const DragAndDrop = () => {
                                 min="1"
                                 max="15"
                                 class="slider"
-                                id="myRange2"
+                                id="myRange"
                                 onChange={(e) =>
                                     updateState({ replicas: e.target.value })
                                 }

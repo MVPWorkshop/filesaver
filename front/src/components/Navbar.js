@@ -5,28 +5,35 @@ import LoginButton from "./LoginButton";
 
 const shortAddress = (address) => {
     //creates a short string representation for a given `address`
-    return `${address.slice(0, 7)}...${address.slice(address.length - 4)}`;
+    return `${address.slice(0, 4)}...${address.slice(address.length - 4)}`;
 };
 
 const Logo = () => {
+    const navigate = useNavigate();
+
     return (
         <div className="Logo">
-            <h3>FILESAVER</h3>
+            <h3 onClick={() => navigate(`/`)}>FILESAVER</h3>
         </div>
     );
 };
 
-const NavOptions = () => {
+const NavOptions = ({ stateManager }) => {
     const navigate = useNavigate();
 
     return (
         <div className="NavOptions">
-            <div className="Option" onClick={() => navigate("/about")}>
-                About
+            <div
+                className="Option"
+                onClick={() =>
+                    navigate(`/user/${stateManager.state.userAccount}`)
+                }
+            >
+                Profile
             </div>
-            <div className="Option" onClick={() => navigate("/about")}>
-                Contact
-            </div>
+            {/* <div className="Option" onClick={() => navigate("/about")}>
+                Feed
+            </div> */}
         </div>
     );
 };
@@ -37,18 +44,19 @@ const Navbar = ({ stateManager }) => {
             <div className="Navbar">
                 <Logo></Logo>
                 <div className="Container">
-                    <NavOptions></NavOptions>
-                    <h4>
-                        Account: {shortAddress(stateManager.state.userAccount)}
+                    <NavOptions stateManager={stateManager}></NavOptions>
+                    <h4 className="UserAddress">
+                        {shortAddress(stateManager.state.userAccount)}
                     </h4>
-                    <button
+                    <h4
+                        className="LogOutButton"
                         onClick={() => {
                             stateManager.resetState();
                             utils.redirect("/");
                         }}
                     >
                         Log out
-                    </button>
+                    </h4>
                 </div>
             </div>
         );

@@ -18,4 +18,24 @@ const upload = async ({ files }) => {
     return { rootCid };
 };
 
-export { upload };
+const download = async ({ cid }) => {
+    // const url = `https://${cid}..ipfs.w3s.link`
+    const urlStr =
+        "https://bafybeiaoah4uzvp76ijxl2mt5z5eweywxlyoyank4222ehhqviw6o6ykja.ipfs.w3s.link/"; //Relu%20(1).png";
+    let blob = await fetch(urlStr).then((r) => r.blob());
+    const url = window.URL.createObjectURL(new Blob([blob]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", `FileSaver-Download.zip`);
+
+    // Append to html link element page
+    document.body.appendChild(link);
+
+    // Start download
+    link.click();
+
+    // Clean up and remove the link
+    link.parentNode.removeChild(link);
+};
+
+export { upload, download };

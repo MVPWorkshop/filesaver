@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import * as filecoin from "../interactions/filecoin";
 
 const Row = ({ values, bold }) => {
@@ -31,6 +33,8 @@ const FirstRow = ({ values, bold }) => {
 let mutexTaken = false;
 
 const FileList = ({ stateManager }) => {
+    const navigate = useNavigate();
+
     const [state, setState] = useState({ loading: true, list: [] });
 
     const updateState = (newState) => setState({ ...state, ...newState });
@@ -72,7 +76,12 @@ const FileList = ({ stateManager }) => {
             {state.list.map((el) => (
                 <Row
                     values={[
-                        el.name,
+                        <div
+                            className="FileLink"
+                            onClick={() => navigate(`/file/${el.cid}`)}
+                        >
+                            {el.name}
+                        </div>,
                         el.status,
                         el.replicas,
                         el.duration,

@@ -71,6 +71,9 @@ button {
   overflow: visible;
   flex-wrap: nowrap;
 }
+.Navbar .Logo h3 {
+  cursor: pointer;
+}
 .Navbar .Container {
   display: flex;
 }
@@ -87,6 +90,19 @@ button {
 .Navbar .NavOptions .Option:hover {
   cursor: pointer;
   border-color: black;
+}
+.Navbar .UserAddress {
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+.Navbar .LogOutButton {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid black;
+  margin-left: 20px;
+  cursor: pointer;
 }
 
 .FileList {
@@ -141,6 +157,10 @@ button {
 }
 .FileList .Row .Entry img:hover {
   opacity: 0.5;
+}
+.FileList .FileLink {
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .FeedList {
@@ -316,6 +336,17 @@ button {
   line-height: 1.5;
   text-align: center;
 }
+.Home .LoggedInMessage {
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  width: 150px;
+  margin: 0 auto;
+}
+.Home .LoggedInMessage .Link {
+  text-decoration: underline;
+  cursor: pointer;
+}
 .Home .FeedListContainer {
   padding-top: 50px;
 }
@@ -334,6 +365,9 @@ button {
   line-height: 1.2;
   text-align: center;
   font-weight: 400;
+}
+.Home .FixedContainer {
+  height: 100px;
 }
 
 .User {
@@ -416,4 +450,31 @@ button {
 .File .MainFileCard button {
   margin-top: 30px;
   width: 200px;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  input[type=range] {
+    overflow: hidden;
+    -webkit-appearance: none;
+    background-color: black;
+    border-radius: 2px;
+    border: 1px solid black;
+    cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-runnable-track {
+    height: 10px;
+    -webkit-appearance: none;
+    color: white;
+    margin-top: -1px;
+    border-radius: 2px;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    width: 15px;
+    -webkit-appearance: none;
+    height: 15px;
+    cursor: ew-resize;
+    background: white;
+    color: white;
+    border-radius: 2px;
+  }
 }/*# sourceMappingURL=app.css.map */
