@@ -1,11 +1,9 @@
 require('dotenv').config();
-const app = require('express')();
+const { http } = require('../api');
 const { io } = require("socket.io-client");
-const socket = io.connect('http://localhost:3000', { reconnect: true });
+const socket = io.connect(`http://localhost:${process.env.SERVER_PORT}`, { reconnect: true });
 
-const http = require('http').Server(app);
-
-const address = process.env.SP_USERNAME;
+const address = process.env.SP_ADDRESS;
 const port = process.env.SP_PORT;
 
 // Helper functions 
@@ -20,6 +18,7 @@ function applyForOffer(socket, offer_cid) {
 }
 
 // Socket events
+console.log('Calling on fundtion');;
 socket.on('fs-offer', function (data) {
     console.log('======= Detected new offer =======');
     const { offer_price, offer_length, offer_size, offer_cid } = data;
