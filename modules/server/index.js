@@ -1,12 +1,12 @@
-require('dotenv').config();
-const fs = require('fs');
-const { app, http } = require('../api');
-const multiparty = require('multiparty');
+import * as dotenv from 'dotenv';
+dotenv.config();
+import { app, http } from '../api.js';
+import multiparty from 'multiparty';
 
 const port = process.env.SERVER_PORT || 3000;
 
 
-const SocketModule = require('./socket');
+import SocketModule from './socket.js';
 
 let addresses = {};
 let ids = {};
@@ -23,7 +23,7 @@ app.post('/store', (req, res) => {
 
         const offer_cid = fields.cid[0];
         const offer_price = fields.value[0];
-        const offer_size = files.file[0].size;
+        const offer_size = fields.size[0];
         const offer_duration = fields.duration[0];
 
         SocketModule.broadcastStorageOffer(offer_cid, offer_price, offer_size, offer_duration)

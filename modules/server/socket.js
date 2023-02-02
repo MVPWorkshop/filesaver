@@ -1,6 +1,6 @@
-const { http } = require('../api');
-const io = require('socket.io')(http);
-
+import { http } from '../api.js';
+import { Server } from 'socket.io';
+const io = new Server(http, { cors: { origin: '*' } });
 const service_provider_data = {};
 
 class SocketModule {
@@ -9,7 +9,7 @@ class SocketModule {
     }
 
     static broadcastStorageOffer(offer_cid, offer_price, offer_size, offer_duration) {
-        const payload = { offer_price, offer_length, offer_size, offer_cid };
+        const payload = { offer_price, offer_duration, offer_size, offer_cid };
         io.emit('fs-offer', payload);
     }
 
@@ -41,4 +41,4 @@ class SocketModule {
     }
 }
 
-module.exports = SocketModule;
+export default SocketModule;

@@ -1,7 +1,6 @@
-const app = require('express')();
-const http = require('http').Server(app);
+import express from 'express';
+const app = express();
+import * as httpImport from 'http';
+const http = httpImport.Server(app);
 
-module.exports = {
-    app,
-    http,
-}
+export { app, http };
