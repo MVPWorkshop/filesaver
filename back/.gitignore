@@ -1,0 +1,16 @@
+node_modules
+.env
+coverage
+coverage.json
+typechain
+typechain-types
+
+# Hardhat files
+cache
+artifacts
+
+# Filesaver cache files
+/modules/service-provider/savedFiles/*
+/modules/service-provider/deals.json
+/modules/service-provider/offers.json
+modules/server/offers.json

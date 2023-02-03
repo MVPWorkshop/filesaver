@@ -1,0 +1,21 @@
+{
+    "name": "filesaver",
+    "devDependencies": {
+        "@nomicfoundation/hardhat-toolbox": "^2.0.1",
+        "dotenv": "^16.0.3",
+        "hardhat": "^2.12.6"
+    },
+    "type": "module",
+    "dependencies": {
+        "@openzeppelin/contracts": "^4.8.1",
+        "bn.js": "^5.2.1",
+        "cors": "^2.8.5",
+        "ethers": "^5.7.2",
+        "express": "^4.18.2",
+        "http": "^0.0.1-security",
+        "ipfs": "^0.66.0",
+        "multiparty": "^4.2.3",
+        "socket.io": "^4.5.4",
+        "socket.io-client": "^4.5.4"
+    }
+}
