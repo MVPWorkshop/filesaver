@@ -22,7 +22,7 @@ contract BountySC {
 
     function getDealInfo(uint256 dealID) external {}
 
-    function claimBounty(uint256 perepetualDealID, uint256 individiualDealID) external {
+    function claimBounty(uint256 perepetualDealID, uint256 individualDealID) external {
         //update providerPerpetualDealClaimed
     }
 }
