@@ -5,6 +5,13 @@ import './IsFIL.sol';
 
 contract FileSaver {
 
+    /*
+        The TERM corresponds to the time period for one individual storage deal
+        Note: perpetual deals are sequences of individual storage deals
+    */
+
+
+    //TODO: calculate minimal duration for a storage deal
     uint constant TERM_DURATION = 10; //in block numbers
 
     address payable sFIL_Address;
@@ -31,6 +38,7 @@ contract FileSaver {
     }
 
     function proposePerpetualDeal (bytes32 _cid, PerpetualDeal memory _pd) public payable {
+        //user wants to store his file so he proposes the terms
 
         CID_to_PerpertualDeal[_cid] = _pd;
         CID_to_PerpertualDeal[_cid].activeReplicas = 0;
@@ -41,6 +49,7 @@ contract FileSaver {
     }
 
     function reserve (bytes32 _cid) public payable {
+        //provider reserves a place in the total number of replicas that the user selected
 
         require (CID_to_PerpertualDeal[_cid].activeReplicas < CID_to_PerpertualDeal[_cid].replicas, "ERR: All places are reserved!");
 
@@ -52,6 +61,7 @@ contract FileSaver {
 
 
     function claim (bytes32 _cid, uint _dealId) public {
+        //provider claim his payout by providing the storage deal ID for the file that has the right CID
 
         require(CID_to_Provider_to_HasReserved[_cid][msg.sender] == true, "ERR: You have not made a reservation to store this File!");
         require(DealId_to_HasBeenUsed[_dealId] == false, "ERR: This dealId has already been claimed!");
@@ -69,11 +79,13 @@ contract FileSaver {
     }
 
     function _totalNumberOfTerms (bytes32 _cid) internal returns (uint) {
+        //calculates the total number of Terms for a given file
 
         return CID_to_PerpertualDeal[_cid].duration / TERM_DURATION;
     }
 
     function _remainingNumberOfTerms (bytes32 _cid) internal returns (uint) {
+        //calculates the number of remaining Terms for a given file
 
         uint perpetualDealExpirationPoint = CID_to_PerpertualDeal[_cid].createdAt + CID_to_PerpertualDeal[_cid].duration;
 
@@ -86,6 +98,7 @@ contract FileSaver {
     }
 
     function _activeTermNumber (bytes32 _cid) internal returns (uint) {
+        //calculates the current Term ID
 
         return _totalNumberOfTerms(_cid) - _remainingNumberOfTerms(_cid);
     }
