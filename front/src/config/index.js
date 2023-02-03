@@ -1,6 +1,8 @@
 const CONTRACT_ARTIFACTS = {};
 
-const CONTRACT_ADDRESSES = {};
+const CONTRACT_ADDRESSES = {
+    filesaver: "0xB37707f69204B50b992319cB68e45f3bc5B18e98",
+};
 
 const DEFAULT_GLOBAL_APP_STATE = {
     userAccount: null,
