@@ -1055,7 +1055,7 @@
     "ethers" "^4.0.0-beta.1"
     "source-map-support" "^0.5.19"
 
-"@openzeppelin/contracts@^4.8.0":
+"@openzeppelin/contracts@^4.8.0", "@openzeppelin/contracts@^4.8.1":
   "integrity" "sha512-xQ6eUZl+RDyb/FiZe1h+U7qr/f4p/SrTSQcTPH2bjur3C5DbuW/zFgCU/b1P/xcIaEqJep+9ju4xDRi3rmChdQ=="
   "resolved" "https://registry.npmjs.org/@openzeppelin/contracts/-/contracts-4.8.1.tgz"
   "version" "4.8.1"
