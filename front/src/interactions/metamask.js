@@ -48,4 +48,11 @@ const fileUpload = async ({ cid, args, value }) => {
     return { err: "" };
 };
 
-export { connect, fileUpload };
+const donate = async ({ cid, value }) => {
+    // cid = ethers.utils.formatBytes32String(cid);
+
+    await _contracts.filesaver.donate(cid, { value });
+    return { err: "" };
+};
+
+export { connect, fileUpload, donate };

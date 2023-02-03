@@ -17,4 +17,10 @@ const redirect = (url) => {
     window.location.replace("http://localhost:3000" + url);
 };
 
-export { isLoggedIn, redirect, delay };
+const shortStr = (str) => {
+    //creates a short string representation for a given `str`
+    if (str == null) return "...loading...";
+    return `${str.slice(0, 4)}...${str.slice(str.length - 4)}`;
+};
+
+export { isLoggedIn, redirect, delay, shortStr };

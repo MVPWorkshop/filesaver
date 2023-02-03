@@ -4,6 +4,7 @@ import FeedList from "../components/FeedList";
 import MainFileCard from "../components/MainFileCard";
 
 const File = ({ stateManager }) => {
+    console.log({ stateManager });
     let { cid } = useParams();
     return (
         <div className="Page File">

@@ -1,20 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 import * as filecoin from "../interactions/filecoin";
 import * as ipfs from "../interactions/ipfs";
+import * as metamask from "../interactions/metamask";
 
+import * as utils from "../utils";
 import * as cfg from "../config";
 
-const MainFileCard = () => {
+const MainFileCard = ({ cid }) => {
     const [state, setState] = useState({
         name: null,
         status: null,
         replicas: null,
         amount: 0,
     });
-
     const updateState = (newState) => setState({ ...state, ...newState });
+    const fcn = async () => {
+        const perpetualDealInfo = await filecoin.getFileInfo({ cid });
+        updateState(perpetualDealInfo);
+    };
+    useEffect(() => {
+        fcn();
+    }, []);
 
     return (
         <div className="MainFileCard">
@@ -22,7 +30,7 @@ const MainFileCard = () => {
                 <img src={cfg.IMAGES.generateRandomImage()}></img>
                 <div className="Info">
                     <div className="Name">{state.name}</div>
-                    <div className="CID">{`0x31....323`}</div>
+                    <div className="CID">{utils.shortStr(state.cid)}</div>
                 </div>
                 <Link onClick={async () => await ipfs.download({ cid: "..." })}>
                     <img src={cfg.IMAGES.downloadButton}></img>
@@ -32,11 +40,13 @@ const MainFileCard = () => {
                 <div className="Info">
                     <div className="Entry">
                         <div className="Label">Status:</div>
-                        <div className="Value">{state.status}</div>
+                        <div className="Value">
+                            {state.activeReplicas == "0" ? "Pending" : "Active"}
+                        </div>
                     </div>
                     <div className="Entry">
                         <div className="Label">Replicas:</div>
-                        <div className="Value">{state.replicas}</div>
+                        <div className="Value">{`${state.activeReplicas}/${state.replicas}`}</div>
                     </div>
                     <div className="Entry">
                         <div className="Label">Uploaded at:</div>
@@ -76,7 +86,13 @@ const MainFileCard = () => {
                         </div>
                     </div>
                 </div>
-                <button>Donate</button>
+                <button
+                    onClick={async () =>
+                        metamask.donate({ cid, value: state.amount })
+                    }
+                >
+                    Donate
+                </button>
             </div>
         </div>
     );

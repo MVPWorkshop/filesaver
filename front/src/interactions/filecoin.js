@@ -14,16 +14,19 @@ const getContractInstances = async () => {
     return { filesaver };
 };
 
-const _getFileInfo = async () => {
-    await utils.delay(400);
+const getFileInfo = async ({ cid }) => {
+    const { filesaver } = await getContractInstances();
 
-    return {
-        name: `File0${Math.floor(Math.random() * 100)}.sol`,
-        status: "Active",
-        replicas: `1/${Math.floor(Math.random() * 10)}`,
-        duration: `${Math.floor(Math.random() * 100)} days`,
-        download: "ipfs.io/...",
-    };
+    const perpetualDealInfo = await filesaver.CID_to_PerpertualDeal(cid);
+
+    const x = { ...perpetualDealInfo };
+
+    x.name = x.name.toString();
+    x.activeReplicas = x.activeReplicas.toString();
+    x.replicas = x.replicas.toString();
+    x.amount = x.amount.toString();
+    console.log({ x });
+    return { ...x, cid };
 };
 
 const getUserFileList = async ({ userAddress }) => {
@@ -50,4 +53,4 @@ const getFeedFileList = async () => {
     return await getUserFileList({ userAddr: "..." });
 };
 
-export { getUserFileList, getFeedFileList };
+export { getFileInfo, getUserFileList, getFeedFileList };

@@ -6,6 +6,7 @@ import * as filecoin from "../interactions/filecoin";
 import * as ipfs from "../interactions/ipfs";
 
 import * as cfg from "../config";
+import * as utils from "../utils";
 
 const Row = ({ values, bold }) => {
     const embed = (val) =>
@@ -84,7 +85,7 @@ const FileList = ({ stateManager }) => {
                                 navigate(`/file/${el.cid.toString()}`)
                             }
                         >
-                            {el.name.toString()}
+                            {utils.shortStr(el.name.toString())}
                         </div>,
                         el.activeReplicas.toString() == "0"
                             ? "Pending"
