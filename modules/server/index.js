@@ -1,15 +1,15 @@
-import * as dotenv from 'dotenv';
+import * as dotenv from "dotenv";
 dotenv.config();
-import * as fs from 'fs';
-import { URL } from 'url';
-const __dirname = new URL('.', import.meta.url).pathname;
-import { app, http } from '../api.js';
-import multiparty from 'multiparty';
-import * as constants from '../constants.js';
+import * as fs from "fs";
+import { URL } from "url";
+const __dirname = new URL(".", import.meta.url).pathname;
+import { app, http } from "../api.js";
+import multiparty from "multiparty";
+import * as constants from "../constants.js";
 
-const port = process.env.SERVER_PORT || 3000;
+const port = process.env.SERVER_PORT || 3001;
 
-import SocketModule from './socket.js';
+import SocketModule from "./socket.js";
 
 let addresses = {};
 let ids = {};
@@ -20,19 +20,25 @@ if (!fs.existsSync(offersPath)) {
 }
 const offers = JSON.parse(fs.readFileSync(offersPath));
 
-// Helper functions 
+// Helper functions
 function storeOffers() {
     fs.writeFileSync(offersPath, JSON.stringify(offers, null, 4));
 }
 
-function saveOfferData(offer_cid, offer_price, offer_duration, offer_size, offer_replications) {
+function saveOfferData(
+    offer_cid,
+    offer_price,
+    offer_duration,
+    offer_size,
+    offer_replications
+) {
     const offerData = {
         offer_price,
         offer_duration,
         offer_size,
         required_replications: offer_replications,
         accepted_applications: [],
-    }
+    };
 
     offers[offer_cid] = offerData;
     storeOffers();
@@ -44,33 +50,54 @@ function saveOfferApplicant(offer_cid, sp_address) {
 }
 
 // API Calls
-app.post('/store', (req, res) => {
+app.get("/status", (req, res) => {
+    res.json({ status: "I am alive" }).status(200);
+});
+app.post("/store", (req, res) => {
+    console.log({ route: "store", req });
     var form = new multiparty.Form();
     form.parse(req, function (err, fields, files) {
-        console.log('Received storage request');
+        console.log("Received storage request");
 
-        const offer_cid = fields.cid[0];
-        const offer_price = fields.value[0];
-        const offer_size = fields.size[0];
-        const offer_replications = parseInt(fields.replications[0]);
-        const offer_duration = fields.duration[0];
+        const offer_cid = req.body.cid; //fields.cid[0];
+        const offer_price = req.body.values; //fields.value[0];
+        const offer_size = req.body.size; //fields.size[0];
+        const offer_replications = parseInt(req.body.replications); //parseInt(fields.replications[0]);
+        const offer_duration = req.body.duration; //fields.duration[0];
 
-        saveOfferData(offer_cid, offer_price, offer_duration, offer_size, offer_replications)
+        saveOfferData(
+            offer_cid,
+            offer_price,
+            offer_duration,
+            offer_size,
+            offer_replications
+        );
 
-        SocketModule.broadcastStorageOffer(offer_cid, offer_price, offer_size, offer_duration)
+        SocketModule.broadcastStorageOffer(
+            offer_cid,
+            offer_price,
+            offer_size,
+            offer_duration
+        );
 
         res.sendStatus(200);
     });
 });
 
 // Socket calls
-SocketModule.on('connection', async (socket) => {
+SocketModule.on("connection", async (socket) => {
     console.log(`User ${socket.client.id} attempting to connect...`);
 
-    socket.on('sp-set-address', sp_address => {
-        console.log(`User ${socket.client.id} set their address to ${sp_address}`);
+    socket.on("sp-set-address", (sp_address) => {
+        console.log(
+            `User ${socket.client.id} set their address to ${sp_address}`
+        );
 
-        SocketModule.saveServiceProviderData(socket, socket.client.id, sp_address);
+        SocketModule.saveServiceProviderData(
+            socket,
+            socket.client.id,
+            sp_address
+        );
 
         SocketModule.joinServiceProviderRoom(socket, socket.client.id);
 
@@ -78,9 +105,9 @@ SocketModule.on('connection', async (socket) => {
             SocketModule.getServiceProviderData(socket.client.id);
 
         SocketModule.sendAddressConfirmation(socket.client.id, saved_address);
-    })
+    });
 
-    socket.on('sp-apply', data => {
+    socket.on("sp-apply", (data) => {
         let { address: sp_address, offer_cid } = data;
         console.log(`User ${sp_address} is applying for offer ${offer_cid}`);
 
@@ -89,10 +116,17 @@ SocketModule.on('connection', async (socket) => {
         const response = {
             status: constants.APPLICATION_RESPONSE.REJECTED,
             offer_cid,
-        }
-        console.log(`Replications required ${offer_data.required_replications}`);
-        console.log(`Replications done ${offer_data.accepted_applications.length}`);
-        if (offer_data.required_replications <= offer_data.accepted_applications.length) {
+        };
+        console.log(
+            `Replications required ${offer_data.required_replications}`
+        );
+        console.log(
+            `Replications done ${offer_data.accepted_applications.length}`
+        );
+        if (
+            offer_data.required_replications <=
+            offer_data.accepted_applications.length
+        ) {
             response.status = constants.APPLICATION_RESPONSE.REJECTED;
         } else {
             saveOfferApplicant(offer_cid, sp_address);
@@ -102,12 +136,11 @@ SocketModule.on('connection', async (socket) => {
         SocketModule.sendApplicationResponse(socket.client.id, response);
     });
 
-    socket.on('disconnect', () => {
+    socket.on("disconnect", () => {
         console.debug(`User ${addresses[socket.client.id]} disconnected`);
 
         SocketModule.removeServiceProviderData(socket.client.id);
     });
-
 });
 
 http.listen(port, () => {
