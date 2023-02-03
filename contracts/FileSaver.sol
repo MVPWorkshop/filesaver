@@ -25,22 +25,22 @@ contract FileSaver {
 
         sFilToken.mint(msg.sender, msg.value);
 
-        balances[msg.sender][dealID] += msg.value;
+        balances[msg.sender][perepetualDealID] += msg.value;
 
-        emit Deposit(msg.sender, dealID, msg.value);
+        emit Deposit(msg.sender, perepetualDealID, msg.value);
     }
 
     function withdraw(uint256 perepetualDealID, uint256 amount) external {
-        if (balances[msg.sender][dealID] < amount) revert InsufficientFunds();
+        if (balances[msg.sender][perepetualDealID] < amount) revert InsufficientFunds();
 
-        balances[msg.sender][dealID] -= amount;
+        balances[msg.sender][perepetualDealID] -= amount;
 
         sFilToken.burn(msg.sender, amount);
 
         (bool success, ) = payable(msg.sender).call{value: amount}("");
         require(success, "Transfer failed.");
 
-        emit Withdrawal(msg.sender, dealID, amount);
+        emit Withdrawal(msg.sender, perepetualDealID, amount);
     }
 
     function createDealProposal(uint256 _time, uint256 _numberOfReplicas, uint256 _price) external payable {
