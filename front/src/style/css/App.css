@@ -1,0 +1,506 @@
+.App {
+  text-align: center;
+  margin: 0 auto;
+}
+
+button {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: -webkit-min-content;
+  width: -moz-min-content;
+  width: min-content; /* 134px */
+  height: 40px;
+  margin: 0 1vmin;
+  padding: 15px 15px 15px 15px;
+  box-shadow: 0px 0.7079948584px 0.7079948584px -0.625px rgba(0, 0, 0, 0.15), 0px 1.8096906217px 1.8096906217px -1.25px rgba(0, 0, 0, 0.14397), 0px 3.6205156476px 3.6205156476px -1.875px rgba(0, 0, 0, 0.13793), 0px 6.8706317149px 6.8706317149px -2.5px rgba(0, 0, 0, 0.1271), 0px 13.6443688899px 13.6443688899px -3.125px rgba(0, 0, 0, 0.10452), 0px 30px 30px -3.75px rgba(0, 0, 0, 0.05);
+  background-color: #222222;
+  overflow: visible;
+  position: relative;
+  align-content: center;
+  flex-wrap: nowrap;
+  gap: 10;
+  border-radius: 8px;
+  /* button text */
+  /* flex-shrink: 0; */
+  width: auto; /* 104px */
+  height: auto; /* 17px */
+  white-space: pre;
+  position: relative;
+  font-weight: 600;
+  font-style: normal;
+  font-family: "Inter", sans-serif;
+  color: #ffffff;
+  font-size: calc(7px + 1vmin);
+  letter-spacing: 0px;
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+}
+
+.Navbar {
+  display: flex;
+  padding: 5px 30px;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+  box-sizing: border-box;
+  width: 100%;
+  height: 80px;
+  font-size: calc(8px + 1vmin);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 24px 24px 24px;
+  background-color: #ffffff;
+  align-content: center;
+  flex-wrap: nowrap;
+  gap: 24;
+  border-radius: 0px 0px 0px 0px;
+  border-color: rgba(0, 0, 0, 0.08);
+  border-style: solid;
+  border-top-width: 0px;
+  border-bottom-width: 1px;
+  border-left-width: 0px;
+  border-right-width: 0px;
+}
+.Navbar .Logo {
+  display: flex;
+  flex: 1 0 0px;
+  margin: 0 1vmin;
+  font-size: calc(8px + 2vmin);
+  overflow: visible;
+  flex-wrap: nowrap;
+}
+.Navbar .Logo h3 {
+  cursor: pointer;
+}
+.Navbar .Container {
+  display: flex;
+}
+.Navbar .NavOptions {
+  margin: auto 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.Navbar .NavOptions .Option {
+  flex: 1;
+  padding: 5px 10px;
+  border-bottom: 1px solid transparent;
+}
+.Navbar .NavOptions .Option:hover {
+  cursor: pointer;
+  border-color: black;
+}
+.Navbar .UserAddress {
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: 300;
+}
+.Navbar .UserBalance {
+  background-color: rgb(246, 246, 246);
+  color: black;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+.Navbar .LogOutButton {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid black;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.FileList {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  box-shadow: 0px 0.7968412782px 2.3905238346px -0.625px rgba(0, 0, 0, 0.05), 0px 2.4136770984px 7.2410312952px -1.25px rgba(0, 0, 0, 0.05), 0px 6.3802836427px 19.140850928px -1.875px rgba(0, 0, 0, 0.05), 0px 20px 60px -2.5px rgba(185, 185, 185, 0.05);
+  background-color: #ffffff;
+  position: relative;
+  align-content: center;
+  border-radius: 10px;
+  margin: 0 50px;
+}
+.FileList .FirstRow {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+  background-color: #ededed;
+  border-radius: 10px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  text-align: center;
+}
+.FileList .FirstRow .Entry {
+  flex: 1;
+}
+.FileList .Row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #ededed;
+  text-align: center;
+  height: 50px;
+  vertical-align: middle;
+}
+.FileList .Row .Entry {
+  flex: 1;
+}
+.FileList .Row .Entry .Value {
+  padding-top: 10px;
+}
+.FileList .Row .Entry img {
+  width: 50px;
+  height: 50px;
+  margin-top: -13px;
+  cursor: pointer;
+}
+.FileList .Row .Entry img:hover {
+  opacity: 0.5;
+}
+.FileList .FileLink {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.FeedList {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 150px;
+}
+.FeedList .FeedListCard {
+  margin: 20px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 30px 30px 30px 30px;
+  box-shadow: 0px 0.7968412782px 2.3905238346px -0.625px rgba(0, 0, 0, 0.05), 0px 2.4136770984px 7.2410312952px -1.25px rgba(0, 0, 0, 0.05), 0px 6.3802836427px 19.140850928px -1.875px rgba(0, 0, 0, 0.05), 0px 20px 60px -2.5px rgba(0, 0, 0, 0.05);
+  background-color: #ffffff;
+  position: relative;
+  align-content: center;
+  flex-wrap: nowrap;
+  gap: 30;
+  border-radius: 20px;
+  padding: 40px;
+}
+.FeedList .FeedListCard .Title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 30px;
+}
+.FeedList .FeedListCard .Title div {
+  padding-left: 10px;
+}
+.FeedList .FeedListCard .Title img {
+  width: 50px;
+  height: 50px;
+}
+.FeedList .FeedListCard .Title .Info {
+  flex: 1;
+  text-align: left;
+}
+.FeedList .FeedListCard .Title .Info .Name {
+  font-weight: 800;
+  padding: 2px;
+}
+.FeedList .FeedListCard .Title .Info .CID {
+  color: gray;
+}
+.FeedList .FeedListCard .Entry {
+  width: 100%;
+  display: flex;
+  font-weight: 400;
+  color: rgb(28, 28, 28);
+  padding: 3px;
+}
+.FeedList .FeedListCard .Entry .Label {
+  font-weight: 600;
+  padding-right: 5px;
+}
+.FeedList .FeedListCard button {
+  margin-top: 30px;
+  width: 200px;
+}
+
+.DragAndDrop {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: 320px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  box-shadow: 0px 0.7968412782px 2.3905238346px -0.625px rgba(0, 0, 0, 0.05), 0px 2.4136770984px 7.2410312952px -1.25px rgba(0, 0, 0, 0.05), 0px 6.3802836427px 19.140850928px -1.875px rgba(0, 0, 0, 0.05), 0px 20px 60px -2.5px rgba(0, 0, 0, 0.05);
+  background-color: #ffffff;
+  position: relative;
+  align-content: center;
+  border-radius: 20px;
+  padding: 80px 0px;
+}
+.DragAndDrop img {
+  width: 80px;
+  height: 80px;
+}
+.DragAndDrop button {
+  margin-top: 50px;
+}
+.DragAndDrop .Entry {
+  width: 80%;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+}
+.DragAndDrop .Entry .Label {
+  font-weight: 600;
+  flex: 1;
+  text-align: left;
+}
+.DragAndDrop .Entry .Value {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+}
+.DragAndDrop .Entry .Value .Selected {
+  text-align: center;
+  width: 100px;
+}
+.DragAndDrop .Entry .Value .slidecontainer input {
+  width: 60px;
+}
+.DragAndDrop .Entry .Value img {
+  height: 100%;
+}
+
+.Page {
+  width: 1400px;
+  margin: 0 auto;
+}
+
+.Home .Moto {
+  flex-shrink: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow: visible;
+  font-weight: 500;
+  font-style: normal;
+  font-family: "Inter", sans-serif;
+  color: #888888;
+  font-size: calc(10px + 1.8vmin);
+  letter-spacing: -0.5px;
+  line-height: 1.5;
+  margin: 30px auto;
+  margin-top: -2%;
+  padding: 200px;
+  padding-bottom: 50px;
+}
+.Home .Moto .Title {
+  flex-shrink: 0;
+  width: auto; /* 202px */
+  height: auto; /* 60px */
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+  position: relative;
+  font-weight: 700;
+  font-style: normal;
+  font-family: "Inter", sans-serif;
+  color: #333333;
+  font-size: 50px;
+  letter-spacing: -2.6px;
+  line-height: 1.2;
+  text-align: center;
+}
+.Home .Moto .SubTitle {
+  flex-shrink: 0;
+  height: auto; /* 72px */
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+  overflow: visible;
+  position: relative;
+  font-weight: 500;
+  font-style: normal;
+  font-family: "Inter", sans-serif;
+  color: #888888;
+  font-size: 24px;
+  letter-spacing: -0.5px;
+  line-height: 1.5;
+  text-align: center;
+}
+.Home .LoggedInMessage {
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  width: 150px;
+  margin: 0 auto;
+}
+.Home .LoggedInMessage .Link {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.Home .FeedListContainer {
+  padding-top: 50px;
+}
+.Home .FeedListContainer .PromoText {
+  flex-shrink: 0;
+  width: auto; /* 482px */
+  height: auto; /* 58px */
+  white-space: pre;
+  position: relative;
+  font-weight: 600;
+  font-style: normal;
+  font-family: "Inter", sans-serif;
+  color: #777777;
+  font-size: 48px;
+  letter-spacing: 0px;
+  line-height: 1.2;
+  text-align: center;
+  font-weight: 400;
+}
+.Home .FixedContainer {
+  height: 100px;
+}
+
+.User {
+  margin-top: 75px;
+}
+.User .Container {
+  display: flex;
+  justify-content: space-between;
+}
+.User .Container .DragAndDrop {
+  margin: 0px 100px;
+}
+.User .Container .FileList {
+  flex: 2;
+}
+
+.FileListContainer {
+  width: 100%;
+  text-align: left;
+}
+
+.File .MainFileCard {
+  margin: 20px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 30px 30px 30px 30px;
+  box-shadow: 0px 0.7968412782px 2.3905238346px -0.625px rgba(0, 0, 0, 0.05), 0px 2.4136770984px 7.2410312952px -1.25px rgba(0, 0, 0, 0.05), 0px 6.3802836427px 19.140850928px -1.875px rgba(0, 0, 0, 0.05), 0px 20px 60px -2.5px rgba(0, 0, 0, 0.05);
+  background-color: #ffffff;
+  position: relative;
+  align-content: center;
+  flex-wrap: nowrap;
+  gap: 30;
+  border-radius: 20px;
+  padding: 40px;
+}
+.File .MainFileCard .Title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 30px;
+}
+.File .MainFileCard .Title img {
+  width: 50px;
+  height: 50px;
+  padding-right: 10px;
+}
+.File .MainFileCard .Title .Info {
+  flex: 1;
+  text-align: left;
+}
+.File .MainFileCard .Title .Info .Name {
+  font-weight: 800;
+  padding: 2px;
+}
+.File .MainFileCard .Title .Info .CID {
+  color: gray;
+}
+.File .MainFileCard .Container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.File .MainFileCard .Entry {
+  width: 100%;
+  display: flex;
+  font-weight: 400;
+  color: rgb(28, 28, 28);
+  padding: 3px;
+}
+.File .MainFileCard .Entry .Label {
+  font-weight: 600;
+  padding-right: 5px;
+}
+.File .MainFileCard .Donation {
+  margin-top: 40px;
+  display: flex;
+  align-content: right;
+  margin-right: 0;
+}
+.File .MainFileCard .Donation .Entry {
+  padding-top: 15px;
+}
+.File .MainFileCard .Donation .Entry .Value {
+  display: flex;
+}
+.File .MainFileCard .Donation .Entry .Selected {
+  width: 80px;
+  font-size: 22px;
+  margin-top: -4px;
+  text-align: center;
+}
+.File .MainFileCard .Donation button {
+  width: 200px;
+  margin-left: 5px;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  input[type=range] {
+    overflow: hidden;
+    -webkit-appearance: none;
+    background-color: black;
+    border-radius: 2px;
+    border: 1px solid black;
+    cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-runnable-track {
+    height: 10px;
+    -webkit-appearance: none;
+    color: white;
+    margin-top: -1px;
+    border-radius: 2px;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    width: 15px;
+    -webkit-appearance: none;
+    height: 15px;
+    cursor: ew-resize;
+    background: white;
+    color: white;
+    border-radius: 2px;
+  }
+}/*# sourceMappingURL=app.css.map */
