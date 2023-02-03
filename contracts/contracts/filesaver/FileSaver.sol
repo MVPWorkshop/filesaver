@@ -44,6 +44,8 @@ contract FileSaver {
 
         require (CID_to_PerpertualDeal[_cid].activeReplicas < CID_to_PerpertualDeal[_cid].replicas, "ERR: All places are reserved!");
 
+        //TODO: MarketAPI interaction - possibly AddBalance function call
+
         CID_to_Provider_to_HasReserved[_cid][msg.sender] = true;
         CID_to_PerpertualDeal[_cid].activeReplicas += 1;
     }
