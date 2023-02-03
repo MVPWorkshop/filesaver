@@ -6,17 +6,21 @@ import "./sFil.sol";
 error InsufficientFunds();
 
 contract FileSaver {
-    mapping(address => mapping(uint64 => uint256)) public balances;
+    mapping(uint256 => address) public perpetualDealClients;
+    mapping(address => mapping(uint256 => uint256)) public balances;
     sFil internal immutable sFilToken;
+    uint256 public perepetualDealID;
+    
 
-    event Deposit(address user, uint64 dealID, uint256 amount);
-    event Withdrawal(address user, uint64 dealID, uint256 amount);
+    event Deposit(address user, uint256 dealID, uint256 amount);
+    event Withdrawal(address user, uint256 dealID, uint256 amount);
+    event PerpetualDealCreated(address user, uint256 _perpetualDealID);
 
     constructor() {
         sFilToken = new sFil();
     }
 
-    function deposit(uint64 dealID) external payable {
+    function deposit(uint256 perepetualDealID) external payable {
         if (msg.value <= 0) revert InsufficientFunds();
 
         sFilToken.mint(msg.sender, msg.value);
@@ -26,7 +30,7 @@ contract FileSaver {
         emit Deposit(msg.sender, dealID, msg.value);
     }
 
-    function withdraw(uint64 dealID, uint256 amount) external {
+    function withdraw(uint256 perepetualDealID, uint256 amount) external {
         if (balances[msg.sender][dealID] < amount) revert InsufficientFunds();
 
         balances[msg.sender][dealID] -= amount;
@@ -40,6 +44,10 @@ contract FileSaver {
     }
 
     function createDealProposal(uint256 _time, uint256 _numberOfReplicas, uint256 _price) external payable {
-
+        perpetualDealClients[perepetualDealID] = msg.sender;
+        
+        emit PerpetualDealCreated(msg.sender, perpetualDealID);
+        
+        perepetualDealID++;
     }
 }
