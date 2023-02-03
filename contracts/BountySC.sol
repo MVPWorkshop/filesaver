@@ -6,6 +6,7 @@ import {MarketTypes} from "@zondax/filecoin-solidity/contracts/v0.8/types/Market
 import "./sFil.sol";
 
 contract BountySC {
+    mapping(address => mapping(uint256 => uint256)) public providerPerpetualDealClaimed;
     event DealCreated(address client);
 
     function reserveSpot(bytes32 cid) external {}
@@ -14,13 +15,15 @@ contract BountySC {
         MarketAPI.addBalance(abi.encodePacked(msg.sender));
         MarketAPI.publishStorageDeals(params);
 
-        //get dealID
+        //get perepetualDealID
 
-        emit DealCreated(MarketAPI.getDealClient(dealID));
+        emit DealCreated(MarketAPI.getDealClient(perepetualDealID));
     }
 
     function getDealInfo(uint256 dealID) external {}
 
-    function claimBounty(uint256 dealID) external {}
+    function claimBounty(uint256 perepetualDealID, uint256 individiualDealID) external {
+        //update providerPerpetualDealClaimed
+    }
 }
 
