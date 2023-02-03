@@ -28,10 +28,13 @@ const UPLOAD_PRICE_CALCULATION = ({ period, replicas }) => {
     return parseInt(period) * 2 + parseInt(replicas) * 3;
 };
 
+const BACKEND_URL = "http://localhost:3030";
+
 export {
     CONTRACT_ARTIFACTS,
     CONTRACT_ADDRESSES,
     DEFAULT_GLOBAL_APP_STATE,
     IMAGES,
     UPLOAD_PRICE_CALCULATION,
+    BACKEND_URL,
 };

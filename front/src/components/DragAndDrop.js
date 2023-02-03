@@ -3,6 +3,7 @@ import { useDropzone } from "react-dropzone";
 
 import * as ipfs from "../interactions/ipfs";
 import * as metamask from "../interactions/metamask";
+import * as backend from "../interactions/backend";
 
 import * as cfg from "../config";
 
@@ -109,6 +110,13 @@ const DragAndDrop = () => {
                         if (err == "") {
                             //sucessfull transaction
                             updateState({ fileName: null });
+                            await backend.notify({
+                                cid: "11",
+                                value: "1233",
+                                size: "11",
+                                duration: state.period,
+                                replications: state.replicas,
+                            });
                         }
                     }}
                 >
