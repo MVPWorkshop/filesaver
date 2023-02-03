@@ -1,31 +1,22 @@
 .App {
   text-align: center;
   margin: 0 auto;
+  font-family: "Inter", sans-serif;
 }
 
 button {
-  box-sizing: border-box;
-  flex-shrink: 0;
-  width: -webkit-min-content;
-  width: -moz-min-content;
-  width: min-content; /* 134px */
   height: 40px;
   margin: 0 1vmin;
   padding: 15px 15px 15px 15px;
-  box-shadow: 0px 0.7079948584px 0.7079948584px -0.625px rgba(0, 0, 0, 0.15), 0px 1.8096906217px 1.8096906217px -1.25px rgba(0, 0, 0, 0.14397), 0px 3.6205156476px 3.6205156476px -1.875px rgba(0, 0, 0, 0.13793), 0px 6.8706317149px 6.8706317149px -2.5px rgba(0, 0, 0, 0.1271), 0px 13.6443688899px 13.6443688899px -3.125px rgba(0, 0, 0, 0.10452), 0px 30px 30px -3.75px rgba(0, 0, 0, 0.05);
-  background-color: #222222;
+  background-color: black;
   overflow: visible;
   position: relative;
   align-content: center;
   flex-wrap: nowrap;
-  gap: 10;
-  border-radius: 8px;
   /* button text */
   /* flex-shrink: 0; */
   width: auto; /* 104px */
   height: auto; /* 17px */
-  white-space: pre;
-  position: relative;
   font-weight: 600;
   font-style: normal;
   font-family: "Inter", sans-serif;
@@ -34,7 +25,23 @@ button {
   letter-spacing: 0px;
   line-height: 1.2;
   text-align: center;
+  font-weight: 400;
   cursor: pointer;
+  border: 1px solid black;
+}
+
+.LoginButton {
+  border: none;
+  font-style: normal;
+  font-weight: 600;
+  font-size: calc(7px + 1vmin);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 11px 15px;
+  cursor: pointer;
+  color: #ffffff;
+  background: linear-gradient(59.29deg, #5c1dcb 0.02%, #584bcf 21.13%, #509ad5 59.37%, #4cccd9 86.59%, #4adfda 100%);
 }
 
 .Navbar {
@@ -95,19 +102,16 @@ button {
   background-color: black;
   color: white;
   padding: 10px 20px;
-  border-radius: 5px;
   font-weight: 300;
 }
 .Navbar .UserBalance {
   background-color: rgb(246, 246, 246);
   color: black;
   padding: 10px 20px;
-  border-radius: 5px;
   margin-right: 5px;
 }
 .Navbar .LogOutButton {
   padding: 10px 20px;
-  border-radius: 5px;
   border: 1px solid black;
   margin-left: 20px;
   cursor: pointer;
@@ -124,7 +128,6 @@ button {
   background-color: #ffffff;
   position: relative;
   align-content: center;
-  border-radius: 10px;
   margin: 0 50px;
 }
 .FileList .FirstRow {
@@ -132,8 +135,8 @@ button {
   display: flex;
   justify-content: space-between;
   padding: 20px 0;
-  background-color: #ededed;
-  border-radius: 10px;
+  background-color: #000000;
+  color: white;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   text-align: center;
@@ -192,7 +195,6 @@ button {
   align-content: center;
   flex-wrap: nowrap;
   gap: 30;
-  border-radius: 20px;
   padding: 40px;
 }
 .FeedList .FeedListCard .Title {
@@ -248,7 +250,6 @@ button {
   background-color: #ffffff;
   position: relative;
   align-content: center;
-  border-radius: 20px;
   padding: 80px 0px;
 }
 .DragAndDrop img {
@@ -290,7 +291,8 @@ button {
   margin: 0 auto;
 }
 
-.Home .Moto {
+.HomeContainer .Moto {
+  display: flex;
   flex-shrink: 0;
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -304,11 +306,22 @@ button {
   letter-spacing: -0.5px;
   line-height: 1.5;
   margin: 30px auto;
-  margin-top: -2%;
+  margin-top: 0;
   padding: 200px;
-  padding-bottom: 50px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 38px;
+  line-height: 46px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-transform: uppercase;
+  text-align: left;
+  color: #ffffff;
+  background: linear-gradient(180deg, #5c1dcf 0%, #4ae3de 100%);
 }
-.Home .Moto .Title {
+.HomeContainer .Moto .Title {
   flex-shrink: 0;
   width: auto; /* 202px */
   height: auto; /* 60px */
@@ -325,38 +338,52 @@ button {
   letter-spacing: -2.6px;
   line-height: 1.2;
   text-align: center;
+  color: white;
+  text-align: left;
+  font-size: 80px;
+  width: 100%;
+  margin: 0;
 }
-.Home .Moto .SubTitle {
+.HomeContainer .Moto .SubTitleContainer {
+  width: 100%;
+  display: flex;
+}
+.HomeContainer .Moto .SubTitleContainer .SubTitle {
   flex-shrink: 0;
   height: auto; /* 72px */
   white-space: pre-wrap;
   word-wrap: break-word;
   word-break: break-word;
-  max-width: 100%;
-  overflow: visible;
-  position: relative;
   font-weight: 500;
   font-style: normal;
-  font-family: "Inter", sans-serif;
   color: #888888;
   font-size: 24px;
-  letter-spacing: -0.5px;
   line-height: 1.5;
   text-align: center;
+  color: white;
+  background-color: black;
+  font-family: "Fira Sans";
+  font-style: normal;
+  font-weight: 300;
+  padding: 1px 5px;
+  text-align: left;
+  margin: 0;
 }
+
 .Home .LoggedInMessage {
   text-align: center;
   display: flex;
   justify-content: space-between;
-  width: 150px;
+  width: 200px;
   margin: 0 auto;
+  font-size: 20px;
 }
 .Home .LoggedInMessage .Link {
   text-decoration: underline;
   cursor: pointer;
 }
 .Home .FeedListContainer {
-  padding-top: 50px;
+  padding-top: 0px;
 }
 .Home .FeedListContainer .PromoText {
   flex-shrink: 0;
@@ -414,7 +441,6 @@ button {
   align-content: center;
   flex-wrap: nowrap;
   gap: 30;
-  border-radius: 20px;
   padding: 40px;
 }
 .File .MainFileCard .Title {
@@ -483,7 +509,6 @@ button {
     overflow: hidden;
     -webkit-appearance: none;
     background-color: black;
-    border-radius: 2px;
     border: 1px solid black;
     cursor: pointer;
   }
@@ -492,7 +517,6 @@ button {
     -webkit-appearance: none;
     color: white;
     margin-top: -1px;
-    border-radius: 2px;
   }
   input[type=range]::-webkit-slider-thumb {
     width: 15px;
@@ -501,6 +525,5 @@ button {
     cursor: ew-resize;
     background: white;
     color: white;
-    border-radius: 2px;
   }
-}/*# sourceMappingURL=app.css.map */
+}/*# sourceMappingURL=App.css.map */
