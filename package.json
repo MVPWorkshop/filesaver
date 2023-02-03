@@ -8,6 +8,8 @@
   "type": "module",
   "dependencies": {
     "@openzeppelin/contracts": "^4.8.1",
+    "bn.js": "^5.2.1",
+    "ethers": "^5.7.2",
     "express": "^4.18.2",
     "http": "^0.0.1-security",
     "ipfs": "^0.66.0",

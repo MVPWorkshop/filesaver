@@ -14,7 +14,10 @@ import SocketModule from './socket.js';
 let addresses = {};
 let ids = {};
 
-const offersPath = `${__dirname}offers.json`
+const offersPath = `${__dirname}offers.json`;
+if (!fs.existsSync(offersPath)) {
+    fs.writeFileSync(offersPath, "{}");
+}
 const offers = JSON.parse(fs.readFileSync(offersPath));
 
 // Helper functions 
@@ -87,7 +90,9 @@ SocketModule.on('connection', async (socket) => {
             status: constants.APPLICATION_RESPONSE.REJECTED,
             offer_cid,
         }
-        if (offer_data.required_replications >= offer_data.accepted_applications.length) {
+        console.log(`Replications required ${offer_data.required_replications}`);
+        console.log(`Replications done ${offer_data.accepted_applications.length}`);
+        if (offer_data.required_replications <= offer_data.accepted_applications.length) {
             response.status = constants.APPLICATION_RESPONSE.REJECTED;
         } else {
             saveOfferApplicant(offer_cid, sp_address);
