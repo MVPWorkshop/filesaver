@@ -47,9 +47,8 @@ const FileList = ({ stateManager }) => {
             return;
         }
         mutexTaken = true;
-        // updateState({ loading: true });
         const { fileList } = await filecoin.getUserFileList({
-            userAddress: stateManager.state.userAddress,
+            userAddress: stateManager.state.userAccount,
         });
 
         console.log({ fileList });
@@ -81,13 +80,17 @@ const FileList = ({ stateManager }) => {
                     values={[
                         <div
                             className="FileLink"
-                            onClick={() => navigate(`/file/${el.cid}`)}
+                            onClick={() =>
+                                navigate(`/file/${el.cid.toString()}`)
+                            }
                         >
-                            {el.name}
+                            {el.name.toString()}
                         </div>,
-                        el.status,
-                        el.replicas,
-                        el.duration,
+                        el.activeReplicas.toString() == "0"
+                            ? "Pending"
+                            : "Active",
+                        `${el.activeReplicas.toString()}/${el.replicas.toString()}`,
+                        el.duration.toString(),
                         <Link
                             onClick={async () =>
                                 await ipfs.download({ cid: "..." })

@@ -31,9 +31,6 @@ const NavOptions = ({ stateManager }) => {
             >
                 Profile
             </div>
-            {/* <div className="Option" onClick={() => navigate("/about")}>
-                Feed
-            </div> */}
         </div>
     );
 };

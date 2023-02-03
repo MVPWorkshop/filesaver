@@ -103,20 +103,40 @@ const DragAndDrop = () => {
 
                 <button
                     onClick={async () => {
-                        await ipfs.upload({ files: state.files });
+                        const rootCid = await ipfs.upload({
+                            files: state.files,
+                        });
+
+                        const value = cfg.UPLOAD_PRICE_CALCULATION({
+                            period: state.period,
+                            replicas: state.replicas,
+                        });
                         const { err } = await metamask.fileUpload({
-                            cid: "....",
+                            cid: rootCid,
+                            args: [
+                                state.fileName,
+                                state.replicas,
+                                0,
+                                0,
+                                state.period,
+                                0,
+                            ],
+                            value,
                         });
                         if (err == "") {
                             //sucessfull transaction
-                            updateState({ fileName: null });
+
+                            console.log({ rootCid });
+
                             await backend.notify({
-                                cid: "11",
-                                value: "1233",
-                                size: "11",
+                                cid: rootCid,
+                                value,
+                                size: "TODO:change",
                                 duration: state.period,
                                 replications: state.replicas,
                             });
+
+                            updateState({ fileName: null });
                         }
                     }}
                 >

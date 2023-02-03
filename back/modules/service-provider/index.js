@@ -1,19 +1,21 @@
-import * as dotenv from 'dotenv';
+import * as dotenv from "dotenv";
 dotenv.config();
-import * as fs from 'fs';
-import { URL } from 'url';
-const __dirname = new URL('.', import.meta.url).pathname;
-import BN from 'bn.js';
-import { create, globSource } from 'ipfs';
+import * as fs from "fs";
+import { URL } from "url";
+const __dirname = new URL(".", import.meta.url).pathname;
+import BN from "bn.js";
+import { create, globSource } from "ipfs";
 const ipfs = await create();
-import { io } from 'socket.io-client';
-const socket = io.connect(`http://localhost:${process.env.SERVER_PORT}`, { reconnect: true });
+import { io } from "socket.io-client";
+const socket = io.connect(`http://localhost:${process.env.SERVER_PORT}`, {
+    reconnect: true,
+});
 
-import { http } from '../api.js';
-import * as constants from '../constants.js';
-import { exit } from 'process';
+import { http } from "../api.js";
+import * as constants from "../constants.js";
+import { exit } from "process";
 
-import * as blockchain from '../blockchain/index.js';
+import * as blockchain from "../blockchain/index.js";
 
 const address = process.env.SP_ADDRESS;
 const port = process.env.SP_PORT;
@@ -39,52 +41,49 @@ function storeDeals() {
 }
 
 function saveOfferData(offer_cid, offer_price, offer_duration, offer_size) {
-    console.log('Saving offer data');
+    console.log("Saving offer data");
     const offerData = {
         offer_price,
         offer_duration,
         offer_size,
-    }
+    };
 
     offers[offer_cid] = offerData;
     storeOffers();
 }
 
 function deleteOfferData(offer_cid) {
-    console.log('Deleting offer data');
+    console.log("Deleting offer data");
     delete offers[offer_cid];
     storeOffers();
 }
 
 function saveStorageDealData(
-    offer_cid
-    , deal_price_per_cycle
-    , deal_duration_per_cycle
-    , cycle_expiration_timestamp
+    offer_cid,
+    deal_price_per_cycle,
+    deal_duration_per_cycle,
+    cycle_expiration_timestamp
 ) {
-    console.log('Saving storage deal data');
+    console.log("Saving storage deal data");
     const storageDealData = {
         deal_price_per_cycle,
         deal_duration_per_cycle,
         cycle_expiration_timestamp,
-        status: 'STORING'
-    }
+        status: "STORING",
+    };
     deals[offer_cid] = storageDealData;
     storeDeals();
 }
 
 function deleteStorageDealData(offer_cid) {
-    console.log('Deleting storage deal data');
+    console.log("Deleting storage deal data");
     delete deals[offer_cid];
     storeDeals();
 }
 
 function calculateDealData(offer_data) {
-    console.log('Calculating deal data');
-    const {
-        offer_price
-        , offer_duration
-    } = offer_data;
+    console.log("Calculating deal data");
+    const { offer_price, offer_duration } = offer_data;
 
     // Offer duration is in months, we need the number of 6 month cycles
     const number_of_cycles = parseInt(offer_duration) / 6;
@@ -101,9 +100,8 @@ function calculateDealData(offer_data) {
         number_of_cycles,
         deal_price_per_cycle,
         cycle_expiration_timestamp,
-    }
+    };
 }
-
 
 function checkOfferCriteria(offer_price, offer_length, offer_size) {
     // Future Feature: Add checking service provider criteria
@@ -112,78 +110,88 @@ function checkOfferCriteria(offer_price, offer_length, offer_size) {
 
 function applyForOffer(socket, offer_cid) {
     console.log(`Applying for offer ${offer_cid}`);
-    socket.emit('sp-apply', { address, offer_cid });
+    socket.emit("sp-apply", { address, offer_cid });
 }
 
 async function renewStorageDeal(offer_cid) {
     const storage_deal_data = deals[offer_cid];
-    if (storage_deal_data.status !== 'STORING') {
+    if (storage_deal_data.status !== "STORING") {
         return;
     }
 
     console.log(`Storage deal ${offer_cid} should be renewed`);
 
     // Concurrency lock
-    storage_deal_data.status = 'RENEWING';
+    storage_deal_data.status = "RENEWING";
 
     await blockchain.claimBounty(offer_cid);
     await blockchain.createDeal(offer_cid);
 
-    storage_deal_data.status = 'STORING';
+    storage_deal_data.status = "STORING";
 }
 
-let renewalCheckStatus = 'FINISHED';
+let renewalCheckStatus = "FINISHED";
 
 async function checkForRenewals() {
-    if (renewalCheckStatus !== 'FINISHED') {
+    if (renewalCheckStatus !== "FINISHED") {
         return;
     }
 
     // Concurrency lock
-    renewalCheckStatus = 'STARTED';
+    renewalCheckStatus = "STARTED";
 
-    console.log('Checking if storage deals need to be renewed');
+    console.log("Checking if storage deals need to be renewed");
 
     for (const offer_cid in deals) {
         console.log(`Checking storage renewal for deal ${offer_cid}`);
-        if (parseInt(deals[offer_cid].cycle_expiration_timestamp) < Date.now()) {
+        if (
+            parseInt(deals[offer_cid].cycle_expiration_timestamp) < Date.now()
+        ) {
             promises.push(renewStorageDeal());
         }
     }
 
     await Promise.all(promises);
 
-    renewalCheckStatus = 'FINISHED';
+    renewalCheckStatus = "FINISHED";
 }
 
 // Socket events
-socket.on('fs-offer', async (data) => {
-    console.log('======= Detected new offer =======');
+socket.on("fs-offer", async (data) => {
+    console.log("======= Detected new offer =======");
     const { offer_price, offer_duration, offer_size, offer_cid } = data;
     console.log(`Offer ${offer_cid} price: ${offer_price}`);
     console.log(`Offer ${offer_cid} size:  ${offer_size}`);
     console.log(`Offer ${offer_cid} duration: ${offer_duration}`);
 
-    const offerCriteriaPassed = checkOfferCriteria(offer_price, offer_duration, offer_size);
+    const offerCriteriaPassed = checkOfferCriteria(
+        offer_price,
+        offer_duration,
+        offer_size
+    );
     if (!offerCriteriaPassed) {
-        console.log(`Offer ${offer_cid} does not meet node criteria, ignoring offer.`);
+        console.log(
+            `Offer ${offer_cid} does not meet node criteria, ignoring offer.`
+        );
         return;
     }
 
     const file = await ipfs.get(offer_cid);
 
-    // TODO Save file downloaded from IPFS 
+    // TODO Save file downloaded from IPFS
     // fs.writeFileSync(`./savedFiles/${offer_cid}`, file);
 
-    saveOfferData(offer_cid, offer_price, offer_duration, offer_size)
+    saveOfferData(offer_cid, offer_price, offer_duration, offer_size);
 
     applyForOffer(socket, offer_cid);
-})
+});
 
-socket.on('fs-application-response', async (data) => {
+socket.on("fs-application-response", async (data) => {
     const { offer_cid, status } = data;
     if (status === constants.APPLICATION_RESPONSE.REJECTED) {
-        console.log(`Application for offer ${offer_cid} rejected, removing offer`);
+        console.log(
+            `Application for offer ${offer_cid} rejected, removing offer`
+        );
         deleteOfferData(offer_cid);
         return;
     }
@@ -196,18 +204,23 @@ socket.on('fs-application-response', async (data) => {
     // TODO Calculate storage deal information per cycle
     const offerData = offers[offer_cid];
     const {
-        deal_price_per_cycle
-        , deal_duration_per_cycle
-        , cycle_expiration_timestamp
+        deal_price_per_cycle,
+        deal_duration_per_cycle,
+        cycle_expiration_timestamp,
     } = calculateDealData(offerData);
 
     saveStorageDealData(
-        offer_cid
-        , deal_price_per_cycle
-        , deal_duration_per_cycle
-        , cycle_expiration_timestamp);
+        offer_cid,
+        deal_price_per_cycle,
+        deal_duration_per_cycle,
+        cycle_expiration_timestamp
+    );
 
     // Call blockchain function to create deal
+    const delay = (delayInms = 1000) => {
+        return new Promise((resolve) => setTimeout(resolve, delayInms));
+    };
+    await delay(45000); //introducing artificial delay to capture both Pending and Active status
     const result = await blockchain.createDeal(offer_cid);
 
     console.log(`===================================================`);
@@ -215,18 +228,20 @@ socket.on('fs-application-response', async (data) => {
     console.log(`===================================================`);
 });
 
-socket.on('connect', function (connection) {
-    console.log('Setting address...');
-    socket.emit('sp-set-address', address);
+socket.on("connect", function (connection) {
+    console.log("Setting address...");
+    socket.emit("sp-set-address", address);
 });
 
-socket.on('fs-confirm-address', function (confirmation_address) {
+socket.on("fs-confirm-address", function (confirmation_address) {
     if (confirmation_address === address) {
         console.log(`Successfully connected to server and set address!`);
     } else {
-        throw Error(`Server connection failed! Received address ${confirmation_address}`);
+        throw Error(
+            `Server connection failed! Received address ${confirmation_address}`
+        );
     }
-})
+});
 
 setInterval(checkForRenewals, 60 * 60 * 1000);
 

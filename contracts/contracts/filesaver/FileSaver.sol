@@ -17,6 +17,7 @@ contract FileSaver {
     address payable sFIL_Address;
         
     struct PerpetualDeal {
+        string name;
         uint replicas;
         uint activeReplicas;
         uint createdAt;
@@ -24,13 +25,16 @@ contract FileSaver {
         uint amount;    
     }
 
-    mapping (bytes32 => PerpetualDeal) CID_to_PerpertualDeal;
+    mapping (address => uint) public user_to_CID_Counter;
+    mapping (address => bytes32[]) public user_to_CID;
 
-    mapping (bytes32 => mapping(address => bool)) CID_to_Provider_to_HasReserved;
+    mapping (bytes32 => PerpetualDeal) public CID_to_PerpertualDeal;
 
-    mapping (bytes32 => mapping(address => uint)) CID_to_Provider_to_NumberOfClaims;
+    mapping (bytes32 => mapping(address => bool)) public CID_to_Provider_to_HasReserved;
 
-    mapping (uint => bool) DealId_to_HasBeenUsed;
+    mapping (bytes32 => mapping(address => uint)) public CID_to_Provider_to_NumberOfClaims;
+
+    mapping (uint => bool) public DealId_to_HasBeenUsed;
 
     constructor (address payable _sFIL_Address) {
 
@@ -44,6 +48,21 @@ contract FileSaver {
         CID_to_PerpertualDeal[_cid].activeReplicas = 0;
         CID_to_PerpertualDeal[_cid].createdAt = block.number;
         CID_to_PerpertualDeal[_cid].amount = msg.value;
+
+        user_to_CID[msg.sender].push(_cid);
+        user_to_CID_Counter[msg.sender] += 1;
+
+        IsFIL(sFIL_Address).wrapForSomeone{value: msg.value}(payable(address(this)));
+    }
+
+    function donate (bytes32 _cid) public payable {
+        //user donates to an existing perpetual deal
+
+        //TODO check if the CID exists
+
+        CID_to_PerpertualDeal[_cid].amount += msg.value;
+        user_to_CID[msg.sender].push(_cid);
+        user_to_CID_Counter[msg.sender] += 1;
 
         IsFIL(sFIL_Address).wrapForSomeone{value: msg.value}(payable(address(this)));
     }

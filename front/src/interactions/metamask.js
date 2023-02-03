@@ -3,8 +3,6 @@ import { ethers } from "ethers";
 import * as utils from "../utils";
 import * as cfg from "../config";
 
-import FILESAVER_ARTIFACT from "./artifacts/contracts/filesaver/FileSaver.sol/FileSaver.json";
-
 const _contracts = {
     filesaver: null,
     sFIL: null,
@@ -16,7 +14,7 @@ const init = async () => {
     const signer = provider.getSigner();
     _contracts.filesaver = new ethers.Contract(
         cfg.CONTRACT_ADDRESSES.filesaver,
-        FILESAVER_ARTIFACT.abi,
+        cfg.FILESAVER_ARTIFACT.abi,
         signer
     );
 };
@@ -39,9 +37,14 @@ const connect = async () => {
     return { err: "", account };
 };
 
-const fileUpload = async ({ cid, price, duration }) => {
-    cid = ethers.utils.formatBytes32String(cid);
-    await _contracts.filesaver.proposePerpetualDeal(cid, [1, 2, 3, 4, 5]);
+const fileUpload = async ({ cid, args, value }) => {
+    console.log({ cid, args, value });
+
+    console.log({ ROOT: cid.rootCid });
+
+    cid = ethers.utils.formatBytes32String(cid.rootCid);
+
+    await _contracts.filesaver.proposePerpetualDeal(cid, args, { value });
     return { err: "" };
 };
 
