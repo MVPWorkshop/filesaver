@@ -14,7 +14,7 @@ const upload = async ({ files }) => {
         maxRetries: 3,
     });
 
-    const x = new CID(rootCid).toString().slice(0, 16);
+    const x = new CID(rootCid).toString().slice(0, 26);
 
     console.log({ x, length: x.length });
 
