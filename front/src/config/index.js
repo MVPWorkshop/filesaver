@@ -34,8 +34,7 @@ const DEFAULT_HYPERSPACE_PROVIDER = ethers.getDefaultProvider(
 );
 
 const UPLOAD_PRICE_CALCULATION = ({ period, replicas }) => {
-    console.log({ period, replicas });
-    return parseInt(period) * 2 + parseInt(replicas) * 3;
+    return `${(parseInt(period) * 2 + parseInt(replicas) * 3) / 100}`;
 };
 
 const BACKEND_URL = "http://localhost:3030";

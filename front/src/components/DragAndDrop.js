@@ -99,7 +99,7 @@ const DragAndDrop = () => {
                         <b>{`~${cfg.UPLOAD_PRICE_CALCULATION({
                             period: state.period,
                             replicas: state.replicas,
-                        })} sFIL`}</b>
+                        })} FIL`}</b>
                     </div>
                 </div>
 

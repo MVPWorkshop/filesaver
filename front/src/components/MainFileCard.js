@@ -14,7 +14,7 @@ const MainFileCard = ({ cid }) => {
         status: null,
         replicas: null,
         amount: 0,
-        donationAmount: 1,
+        donationAmount: "0.01",
     });
     const updateState = (newState) => setState({ ...state, ...newState });
     const fcn = async () => {
@@ -53,13 +53,18 @@ const MainFileCard = ({ cid }) => {
                     </div>
                     <div className="Entry">
                         <div className="Label">Uploaded at:</div>
-                        <div className="Value">{`21.01.2023.`}</div>
+                        <div className="Value">{`6.02.2023.`}</div>
                     </div>
                 </div>
                 <div className="Info">
                     <div className="Entry">
                         <div className="Label">Locked for:</div>
-                        <div className="Value">{`9 years, 11 months`}</div>
+                        <div className="Value">
+                            {utils.randomDuration({
+                                yearRange: 14,
+                                monthRange: 9,
+                            })}
+                        </div>
                     </div>
                     <div className="Entry">
                         <div className="Label">Cycle ends in:</div>
@@ -74,8 +79,9 @@ const MainFileCard = ({ cid }) => {
                         <div className="slidecontainer">
                             <input
                                 type="range"
-                                min="1"
-                                step="1"
+                                min="0.01"
+                                max="5"
+                                step="0.05"
                                 class="slider"
                                 id="myRange"
                                 value={state.donationAmount}

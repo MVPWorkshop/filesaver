@@ -44,14 +44,18 @@ const fileUpload = async ({ cid, args, value }) => {
 
     cid = ethers.utils.formatBytes32String(cid.rootCid);
 
-    await _contracts.filesaver.proposePerpetualDeal(cid, args, { value });
+    await _contracts.filesaver.proposePerpetualDeal(cid, args, {
+        value: ethers.utils.parseEther(value),
+    });
     return { err: "" };
 };
 
 const donate = async ({ cid, value }) => {
     // cid = ethers.utils.formatBytes32String(cid);
 
-    await _contracts.filesaver.donate(cid, { value });
+    await _contracts.filesaver.donate(cid, {
+        value: ethers.utils.parseEther(value),
+    });
     return { err: "" };
 };
 
