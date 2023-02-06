@@ -4,17 +4,19 @@ import FileCard from "./FileCard";
 
 import * as filecoin from "../interactions/filecoin";
 
-const FeedList = () => {
+const FeedList = ({ stateManager }) => {
     const [state, setState] = useState({ loading: true, list: [] });
 
     const updateState = (newState) => setState({ ...state, ...newState });
 
     const refreshFcn = async () => {
+        stateManager.updateState({ loaderActive: true });
         updateState({ loading: true });
 
         const { fileList } = await filecoin.getFeedFileList();
 
         updateState({ loading: false, list: fileList });
+        stateManager.updateState({ loaderActive: false });
     };
 
     useEffect(() => {

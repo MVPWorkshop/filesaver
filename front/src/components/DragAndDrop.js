@@ -56,6 +56,7 @@ const DragAndDrop = () => {
                                 step="6"
                                 class="slider"
                                 id="myRange"
+                                value={state.period}
                                 onChange={(e) =>
                                     updateState({ period: e.target.value })
                                 }
@@ -74,6 +75,7 @@ const DragAndDrop = () => {
                                 max="15"
                                 class="slider"
                                 id="myRange"
+                                value={state.replicas}
                                 onChange={(e) =>
                                     updateState({ replicas: e.target.value })
                                 }
@@ -97,26 +99,46 @@ const DragAndDrop = () => {
                         <b>{`~${cfg.UPLOAD_PRICE_CALCULATION({
                             period: state.period,
                             replicas: state.replicas,
-                        })} sFIL`}</b>
+                        })} FIL`}</b>
                     </div>
                 </div>
 
                 <button
                     onClick={async () => {
-                        await ipfs.upload({ files: state.files });
+                        const rootCid = await ipfs.upload({
+                            files: state.files,
+                        });
+
+                        const value = cfg.UPLOAD_PRICE_CALCULATION({
+                            period: state.period,
+                            replicas: state.replicas,
+                        });
                         const { err } = await metamask.fileUpload({
-                            cid: "....",
+                            cid: rootCid,
+                            args: [
+                                state.fileName,
+                                state.replicas,
+                                0,
+                                0,
+                                state.period,
+                                0,
+                            ],
+                            value,
                         });
                         if (err == "") {
                             //sucessfull transaction
-                            updateState({ fileName: null });
+
+                            console.log({ rootCid });
+
                             await backend.notify({
-                                cid: "11",
-                                value: "1233",
-                                size: "11",
+                                cid: rootCid,
+                                value,
+                                size: "TODO:change",
                                 duration: state.period,
                                 replications: state.replicas,
                             });
+
+                            updateState({ fileName: null });
                         }
                     }}
                 >

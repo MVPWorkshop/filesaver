@@ -6,6 +6,7 @@ import * as filecoin from "../interactions/filecoin";
 import * as ipfs from "../interactions/ipfs";
 
 import * as cfg from "../config";
+import * as utils from "../utils";
 
 const Row = ({ values, bold }) => {
     const embed = (val) =>
@@ -47,9 +48,8 @@ const FileList = ({ stateManager }) => {
             return;
         }
         mutexTaken = true;
-        // updateState({ loading: true });
         const { fileList } = await filecoin.getUserFileList({
-            userAddress: stateManager.state.userAddress,
+            userAddress: stateManager.state.userAccount,
         });
 
         console.log({ fileList });
@@ -58,9 +58,11 @@ const FileList = ({ stateManager }) => {
         }
         mutexTaken = false;
         setTimeout(periodicFcn, 10000);
+        stateManager.updateState({ loaderActive: false });
     };
 
     useEffect(() => {
+        stateManager.updateState({ loaderActive: true });
         periodicFcn();
     }, []);
 
@@ -81,13 +83,17 @@ const FileList = ({ stateManager }) => {
                     values={[
                         <div
                             className="FileLink"
-                            onClick={() => navigate(`/file/${el.cid}`)}
+                            onClick={() =>
+                                navigate(`/file/${el.cid.toString()}`)
+                            }
                         >
-                            {el.name}
+                            {utils.shortStr(el.name.toString())}
                         </div>,
-                        el.status,
-                        el.replicas,
-                        el.duration,
+                        el.activeReplicas.toString() == "0"
+                            ? "Pending"
+                            : "Active",
+                        `${el.activeReplicas.toString()}/${el.replicas.toString()}`,
+                        `${el.duration.toString()} months`,
                         <Link
                             onClick={async () =>
                                 await ipfs.download({ cid: "..." })

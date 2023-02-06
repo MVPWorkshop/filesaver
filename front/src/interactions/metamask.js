@@ -3,6 +3,22 @@ import { ethers } from "ethers";
 import * as utils from "../utils";
 import * as cfg from "../config";
 
+const _contracts = {
+    filesaver: null,
+    sFIL: null,
+};
+
+const init = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+    // await provider.send("eth_requestAccounts", []);
+    const signer = provider.getSigner();
+    _contracts.filesaver = new ethers.Contract(
+        cfg.CONTRACT_ADDRESSES.filesaver,
+        cfg.FILESAVER_ARTIFACT.abi,
+        signer
+    );
+};
+
 const connect = async () => {
     //requests connection from the user's wallet and returns account info
     await utils.delay(50);
@@ -16,13 +32,31 @@ const connect = async () => {
     const signer = provider.getSigner();
     const account = await signer.getAddress();
 
+    await init();
+
     return { err: "", account };
 };
 
-const fileUpload = async ({ cid, price, duration }) => {
-    await utils.delay(1250);
+const fileUpload = async ({ cid, args, value }) => {
+    console.log({ cid, args, value });
 
+    console.log({ ROOT: cid.rootCid });
+
+    cid = ethers.utils.formatBytes32String(cid.rootCid);
+
+    await _contracts.filesaver.proposePerpetualDeal(cid, args, {
+        value: ethers.utils.parseEther(value),
+    });
     return { err: "" };
 };
 
-export { connect, fileUpload };
+const donate = async ({ cid, value }) => {
+    // cid = ethers.utils.formatBytes32String(cid);
+
+    await _contracts.filesaver.donate(cid, {
+        value: ethers.utils.parseEther(value),
+    });
+    return { err: "" };
+};
+
+export { connect, fileUpload, donate };

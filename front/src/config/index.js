@@ -1,8 +1,14 @@
+import { ethers } from "ethers";
+import FILESAVER_ARTIFACT from "../interactions/artifacts/contracts/filesaver/FileSaver.sol/FileSaver.json";
+
 const CONTRACT_ARTIFACTS = {};
 
-const CONTRACT_ADDRESSES = {};
+const CONTRACT_ADDRESSES = {
+    filesaver: "0x66e0e5994C1e4f5A6613827f06b7Fc4E6B37b609",
+};
 
 const DEFAULT_GLOBAL_APP_STATE = {
+    loaderActive: false,
     userAccount: null,
     uploadInfo: {
         fileName: null,
@@ -23,9 +29,12 @@ const IMAGES = {
     providerImage: "/images/providers.png",
 };
 
+const DEFAULT_HYPERSPACE_PROVIDER = ethers.getDefaultProvider(
+    "https://filecoin-hyperspace.chainstacklabs.com/rpc/v1"
+);
+
 const UPLOAD_PRICE_CALCULATION = ({ period, replicas }) => {
-    console.log({ period, replicas });
-    return parseInt(period) * 2 + parseInt(replicas) * 3;
+    return `${(parseInt(period) * 2 + parseInt(replicas) * 3) / 100}`;
 };
 
 const BACKEND_URL = "http://localhost:3030";
@@ -37,4 +46,6 @@ export {
     IMAGES,
     UPLOAD_PRICE_CALCULATION,
     BACKEND_URL,
+    DEFAULT_HYPERSPACE_PROVIDER,
+    FILESAVER_ARTIFACT,
 };

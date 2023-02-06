@@ -1,4 +1,5 @@
 import { Web3Storage } from "web3.storage";
+import CID from "cids";
 
 const WEB3_STORAGE_API_TOKEN = process.env.REACT_APP_WEB3_STORAGE_API_TOKEN;
 
@@ -13,15 +14,17 @@ const upload = async ({ files }) => {
         maxRetries: 3,
     });
 
-    console.log(rootCid);
+    const x = new CID(rootCid).toString().slice(0, 26);
 
-    return { rootCid };
+    console.log({ x, length: x.length });
+
+    return { rootCid: x };
 };
 
 const download = async ({ cid }) => {
     // const url = `https://${cid}..ipfs.w3s.link`
     const urlStr =
-        "https://bafybeiaoah4uzvp76ijxl2mt5z5eweywxlyoyank4222ehhqviw6o6ykja.ipfs.w3s.link/"; //Relu%20(1).png";
+        "https://bafybeiaoah4uzvp76ijxl2mt5z5eweywxlyoyank4222ehhqviw6o6ykja.ipfs.w3s.link/";
     let blob = await fetch(urlStr).then((r) => r.blob());
     const url = window.URL.createObjectURL(new Blob([blob]));
     const link = document.createElement("a");
