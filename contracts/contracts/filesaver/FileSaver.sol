@@ -45,6 +45,8 @@ contract FileSaver {
 
     mapping (uint => bool) public DealId_to_HasBeenUsed;
 
+    /// @notice Constructor
+    /// @param _sFIL_Address the address of sFIL Contract
     constructor (address payable _sFIL_Address) {
 
         sFIL_Address = _sFIL_Address;
