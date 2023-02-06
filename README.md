@@ -10,6 +10,8 @@ FileSaver is the first fully decentralized drive designed for permanent file sto
 
 It is unlimited by time, decentralized, storage dApp run on Filecoin.
 
+**This project has been built for the [FVM Space Warp Hackathon](https://ethglobal.com/showcase/filesaver-e5wkq).**
+
 ## Problem
 
 Currently, Filecoin enables storage of files for a fixed amount of time (6-18\* months).
