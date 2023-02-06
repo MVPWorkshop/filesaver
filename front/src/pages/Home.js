@@ -17,6 +17,9 @@ const Home = ({ stateManager }) => {
                     </h3>
                     <div></div>
                 </div>
+                <div className="MVPWContainer">
+                    <img src="/images/MVPW-logo.png"></img>
+                </div>
             </div>
             <div className="Page Home">
                 <div className="FixedContainer">
@@ -41,7 +44,7 @@ const Home = ({ stateManager }) => {
 
                 <div className="FeedListContainer">
                     <h2 className="PromoText">Check out Data Feed</h2>
-                    <FeedList></FeedList>
+                    <FeedList stateManager={stateManager}></FeedList>
                 </div>
             </div>
         </div>

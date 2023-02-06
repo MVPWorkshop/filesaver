@@ -27,6 +27,15 @@ const App = () => {
 
     return (
         <div className="App">
+            {state.loaderActive ? (
+                <div className="overlay">
+                    <div class="overlay-content lds-ripple">
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            ) : null}
+
             <Navbar stateManager={stateManager}></Navbar>
 
             <Routes>

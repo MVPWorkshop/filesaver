@@ -56,6 +56,7 @@ const DragAndDrop = () => {
                                 step="6"
                                 class="slider"
                                 id="myRange"
+                                value={state.period}
                                 onChange={(e) =>
                                     updateState({ period: e.target.value })
                                 }
@@ -74,6 +75,7 @@ const DragAndDrop = () => {
                                 max="15"
                                 class="slider"
                                 id="myRange"
+                                value={state.replicas}
                                 onChange={(e) =>
                                     updateState({ replicas: e.target.value })
                                 }

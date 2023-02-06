@@ -8,6 +8,7 @@ const CONTRACT_ADDRESSES = {
 };
 
 const DEFAULT_GLOBAL_APP_STATE = {
+    loaderActive: false,
     userAccount: null,
     uploadInfo: {
         fileName: null,

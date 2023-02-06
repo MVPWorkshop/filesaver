@@ -25,6 +25,7 @@ const getFileInfo = async ({ cid }) => {
     x.activeReplicas = x.activeReplicas.toString();
     x.replicas = x.replicas.toString();
     x.amount = x.amount.toString();
+    x.status = x.activeReplicas == "0" ? "Pending" : "Active";
     console.log({ x });
     return { ...x, cid };
 };
@@ -34,13 +35,17 @@ const getUserFileList = async ({ userAddress }) => {
 
     const CID_Counter = await filesaver.user_to_CID_Counter(userAddress);
 
-    const fileList = [];
+    let fileList = [];
     for (let i = 0; i < CID_Counter; ++i) {
         const cid = await filesaver.user_to_CID(userAddress, i);
-        const perpetualDealInfo = await filesaver.CID_to_PerpertualDeal(cid);
+        // const perpetualDealInfo = await filesaver.CID_to_PerpertualDeal(cid);
 
-        fileList.push({ ...perpetualDealInfo, cid });
+        // fileList.push({ ...perpetualDealInfo, cid });
+
+        fileList.push(getFileInfo({ cid }));
     }
+
+    fileList = await Promise.all(fileList);
     console.log({ fileList });
     return {
         fileList,
@@ -48,9 +53,23 @@ const getUserFileList = async ({ userAddress }) => {
 };
 
 const getFeedFileList = async () => {
-    await utils.delay(700 * Math.random());
+    const userAddresses = ["0x275986f4F52a03A24C926616e53165bc27edF65e"];
 
-    return await getUserFileList({ userAddr: "..." });
+    let list = [];
+
+    for (const ua of userAddresses) {
+        const { fileList } = await getUserFileList({ userAddress: ua });
+        list = list.concat(fileList);
+    }
+
+    console.log({ feedList: list });
+
+    let randomList = [];
+    for (let i = 0; i < 4; ++i) {
+        randomList.push(list[Math.floor(Math.random() * list.length)]);
+    }
+
+    return { fileList: randomList };
 };
 
 export { getFileInfo, getUserFileList, getFeedFileList };

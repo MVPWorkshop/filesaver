@@ -14,15 +14,18 @@ const MainFileCard = ({ cid }) => {
         status: null,
         replicas: null,
         amount: 0,
+        donationAmount: 1,
     });
     const updateState = (newState) => setState({ ...state, ...newState });
     const fcn = async () => {
+        console.log({ RELOAD: true });
+
         const perpetualDealInfo = await filecoin.getFileInfo({ cid });
         updateState(perpetualDealInfo);
     };
     useEffect(() => {
         fcn();
-    }, []);
+    }, [cid]);
 
     return (
         <div className="MainFileCard">
@@ -30,7 +33,7 @@ const MainFileCard = ({ cid }) => {
                 <img src={cfg.IMAGES.generateRandomImage()}></img>
                 <div className="Info">
                     <div className="Name">{state.name}</div>
-                    <div className="CID">{utils.shortStr(state.cid)}</div>
+                    <div className="CID">{utils.shortStr(cid)}</div>
                 </div>
                 <Link onClick={async () => await ipfs.download({ cid: "..." })}>
                     <img src={cfg.IMAGES.downloadButton}></img>
@@ -75,20 +78,22 @@ const MainFileCard = ({ cid }) => {
                                 step="1"
                                 class="slider"
                                 id="myRange"
-                                value={state.amount}
+                                value={state.donationAmount}
                                 onChange={(e) =>
-                                    updateState({ amount: e.target.value })
+                                    updateState({
+                                        donationAmount: e.target.value,
+                                    })
                                 }
                             />
                         </div>
                         <div className="Selected">
-                            <strong>{`${state.amount} FIL`}</strong>
+                            <strong>{`${state.donationAmount} FIL`}</strong>
                         </div>
                     </div>
                 </div>
                 <button
                     onClick={async () =>
-                        metamask.donate({ cid, value: state.amount })
+                        metamask.donate({ cid, value: state.donationAmount })
                     }
                 >
                     Donate

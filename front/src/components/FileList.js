@@ -58,9 +58,11 @@ const FileList = ({ stateManager }) => {
         }
         mutexTaken = false;
         setTimeout(periodicFcn, 10000);
+        stateManager.updateState({ loaderActive: false });
     };
 
     useEffect(() => {
+        stateManager.updateState({ loaderActive: true });
         periodicFcn();
     }, []);
 
@@ -91,7 +93,7 @@ const FileList = ({ stateManager }) => {
                             ? "Pending"
                             : "Active",
                         `${el.activeReplicas.toString()}/${el.replicas.toString()}`,
-                        el.duration.toString(),
+                        `${el.duration.toString()} months`,
                         <Link
                             onClick={async () =>
                                 await ipfs.download({ cid: "..." })
