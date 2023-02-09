@@ -7,7 +7,6 @@ typechain-types
 
 # Hardhat files
 cache
-artifacts
 
 # Filesaver cache files
 /modules/service-provider/savedFiles/*
