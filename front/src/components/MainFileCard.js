@@ -15,13 +15,20 @@ const MainFileCard = ({ cid }) => {
         replicas: null,
         amount: 0,
         donationAmount: "0.01",
+        duration: "",
     });
     const updateState = (newState) => setState({ ...state, ...newState });
     const fcn = async () => {
         console.log({ RELOAD: true });
 
         const perpetualDealInfo = await filecoin.getFileInfo({ cid });
-        updateState(perpetualDealInfo);
+        updateState({
+            ...perpetualDealInfo,
+            duration: utils.randomDuration({
+                yearRange: 14,
+                monthRange: 9,
+            }),
+        });
     };
     useEffect(() => {
         fcn();
@@ -59,12 +66,7 @@ const MainFileCard = ({ cid }) => {
                 <div className="Info">
                     <div className="Entry">
                         <div className="Label">Locked for:</div>
-                        <div className="Value">
-                            {utils.randomDuration({
-                                yearRange: 14,
-                                monthRange: 9,
-                            })}
-                        </div>
+                        <div className="Value">{state.duration}</div>
                     </div>
                     <div className="Entry">
                         <div className="Label">Cycle ends in:</div>
