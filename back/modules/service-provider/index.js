@@ -141,17 +141,20 @@ async function checkForRenewals() {
     renewalCheckStatus = "STARTED";
 
     console.log("Checking if storage deals need to be renewed");
-
-    for (const offer_cid in deals) {
-        console.log(`Checking storage renewal for deal ${offer_cid}`);
-        if (
-            parseInt(deals[offer_cid].cycle_expiration_timestamp) < Date.now()
-        ) {
-            promises.push(renewStorageDeal());
+    try {
+        let promises = [];
+        for (const offer_cid in deals) {
+            console.log(`Checking storage renewal for deal ${offer_cid}`);
+            if (
+                parseInt(deals[offer_cid].cycle_expiration_timestamp) < Date.now()
+            ) {
+                promises.push(renewStorageDeal(offer_cid));
+            }
         }
+        await Promise.all(promises);
+    } catch (e) {
+        console.log('Error occured during storage renewal.\n' + e.message);
     }
-
-    await Promise.all(promises);
 
     renewalCheckStatus = "FINISHED";
 }
@@ -176,7 +179,7 @@ socket.on("fs-offer", async (data) => {
         return;
     }
 
-    const file = await ipfs.get(offer_cid);
+    // const file = await ipfs.get(offer_cid);
 
     // TODO Save file downloaded from IPFS
     // fs.writeFileSync(`./savedFiles/${offer_cid}`, file);
