@@ -37,10 +37,14 @@ const getUserFileList = async ({ userAddress }) => {
     const CID_Counter = await filesaver.user_to_CID_Counter(userAddress);
 
     let fileList = [];
-    for (let i = 0; i < CID_Counter; ++i) {
+
+    const threadFcn = async ({ userAddress, i }) => {
         const cid = await filesaver.user_to_CID(userAddress, i);
 
-        fileList.push(getFileInfo({ cid }));
+        return await getFileInfo({ cid });
+    };
+    for (let i = 0; i < CID_Counter; ++i) {
+        fileList.push(threadFcn({ userAddress, i }));
     }
 
     fileList = await Promise.all(fileList);
@@ -66,6 +70,10 @@ const getFeedFileList = async () => {
     for (let i = 0; i < cfg.FEED_LIST_LENGTH; ++i) {
         randomList.push(list[Math.floor(Math.random() * list.length)]);
     }
+
+    const cids = randomList.map((e) => e.cid);
+
+    console.log({ cids });
 
     return { fileList: randomList };
 };
