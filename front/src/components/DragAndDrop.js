@@ -32,7 +32,7 @@ const DragAndDrop = () => {
         return (
             <div className="DragAndDrop" {...getRootProps()}>
                 <input {...getInputProps()} />
-                <img src={cfg.IMAGES.addFile}></img>
+                <img className="AddFileImg" src={cfg.IMAGES.addFile}></img>
                 <button>Drop Your File</button>
             </div>
         );

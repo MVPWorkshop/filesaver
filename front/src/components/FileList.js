@@ -82,7 +82,12 @@ const FileList = ({ stateManager }) => {
             {state.list.map((el) => (
                 <Row
                     values={[
-                        <img src="/images/image-icon.png"></img>,
+                        <img
+                            src="/images/image-icon.png"
+                            onClick={() =>
+                                navigate(`/file/${el.cid.toString()}`)
+                            }
+                        ></img>,
                         <div
                             className="FileLink"
                             onClick={() =>

@@ -26,7 +26,7 @@ const getFileInfo = async ({ cid }) => {
     x.replicas = x.replicas.toString();
     x.amount = x.amount.toString();
     x.status = x.activeReplicas == "0" ? "Pending" : "Active";
-    x.duration = utils.randomDuration({ monthRange: 5, dayRange: 30 });
+    // x.duration = utils.randomDuration({ monthRange: 5, dayRange: 30 });
     console.log({ x });
     return { ...x, cid };
 };
@@ -39,9 +39,6 @@ const getUserFileList = async ({ userAddress }) => {
     let fileList = [];
     for (let i = 0; i < CID_Counter; ++i) {
         const cid = await filesaver.user_to_CID(userAddress, i);
-        // const perpetualDealInfo = await filesaver.CID_to_PerpertualDeal(cid);
-
-        // fileList.push({ ...perpetualDealInfo, cid });
 
         fileList.push(getFileInfo({ cid }));
     }
