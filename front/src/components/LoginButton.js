@@ -8,7 +8,6 @@ const login = async ({ stateManager, navigate }) => {
 
     if (err == "") {
         stateManager.updateState({ userAccount: account });
-        // navigate(`/user/${account}`, { replace: true });
     }
 };
 

@@ -6,19 +6,23 @@ const WEB3_STORAGE_API_TOKEN = process.env.REACT_APP_WEB3_STORAGE_API_TOKEN;
 // Construct with token and endpoint
 const client = new Web3Storage({ token: WEB3_STORAGE_API_TOKEN });
 
+const genRanHex = (size) =>
+    [...Array(size)]
+        .map(() => Math.floor(Math.random() * 16).toString(16))
+        .join("");
+
 const upload = async ({ files }) => {
     // Pack files into a CAR and send to web3.storage
-    console.log(files[0]);
-    const rootCid = await client.put(files, {
-        name: "FileSaver upload",
-        maxRetries: 3,
-    });
+    // const rootCid = await client.put(files, {
+    //     name: "FileSaver upload",
+    //     maxRetries: 3,
+    // });
 
-    const x = new CID(rootCid).toString().slice(0, 26);
+    const randCid = `0x${genRanHex(26)}`; //new CID(str).toString().slice(0, 26);
 
-    console.log({ x, length: x.length });
+    // console.log({ x, length: x.length });
 
-    return { rootCid: x };
+    return { rootCid: randCid };
 };
 
 const download = async ({ cid }) => {

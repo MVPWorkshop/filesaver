@@ -8,7 +8,7 @@ import * as backend from "../interactions/backend";
 import * as cfg from "../config";
 
 const shortStr = (str) => {
-    return `${str.slice(0, 10)}...${str.slice(str.length - 4)}`;
+    return `${str.slice(0, 6)}...${str.slice(str.length - 4)}`;
 };
 
 const DragAndDrop = () => {

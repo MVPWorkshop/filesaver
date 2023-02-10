@@ -71,6 +71,7 @@ const FileList = ({ stateManager }) => {
             <FirstRow
                 bold={true}
                 values={[
+                    "Type",
                     "File Name",
                     "Status",
                     "Replicas",
@@ -81,13 +82,14 @@ const FileList = ({ stateManager }) => {
             {state.list.map((el) => (
                 <Row
                     values={[
+                        <img src="/images/image-icon.png"></img>,
                         <div
                             className="FileLink"
                             onClick={() =>
                                 navigate(`/file/${el.cid.toString()}`)
                             }
                         >
-                            {utils.shortStr(el.name.toString())}
+                            {el.name.toString()}
                         </div>,
                         el.activeReplicas.toString() == "0"
                             ? "Pending"

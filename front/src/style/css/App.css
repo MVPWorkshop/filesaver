@@ -287,7 +287,7 @@ button {
 }
 
 .Page {
-  width: 1800px;
+  width: 1500px;
   margin: 0 auto;
 }
 
@@ -600,44 +600,11 @@ button {
   border: 4px solid #fff;
   opacity: 1;
   border-radius: 50%;
-  -webkit-animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
-          animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
 
 .lds-ripple div:nth-child(2) {
-  -webkit-animation-delay: -0.5s;
-          animation-delay: -0.5s;
-}
-
-@-webkit-keyframes lds-ripple {
-  0% {
-    top: 36px;
-    left: 36px;
-    width: 0;
-    height: 0;
-    opacity: 0;
-  }
-  4.9% {
-    top: 36px;
-    left: 36px;
-    width: 0;
-    height: 0;
-    opacity: 0;
-  }
-  5% {
-    top: 36px;
-    left: 36px;
-    width: 0;
-    height: 0;
-    opacity: 1;
-  }
-  100% {
-    top: 0px;
-    left: 0px;
-    width: 72px;
-    height: 72px;
-    opacity: 0;
-  }
+  animation-delay: -0.5s;
 }
 
 @keyframes lds-ripple {
@@ -678,7 +645,7 @@ button {
 
 .MVPWContainer {
   position: absolute;
-  margin-left: 1200px;
+  margin-left: 900px;
 }
 .MVPWContainer img {
   height: 150px;

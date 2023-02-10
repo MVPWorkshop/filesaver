@@ -1,7 +1,10 @@
+import { useEffect, useState } from "react";
 import { Link, redirect, useNavigate } from "react-router-dom";
 
-import * as utils from "../utils";
 import LoginButton from "./LoginButton";
+
+import * as metamask from "../interactions/metamask";
+import * as utils from "../utils";
 
 const shortAddress = (address) => {
     //creates a short string representation for a given `address`
@@ -36,6 +39,20 @@ const NavOptions = ({ stateManager }) => {
 };
 
 const Navbar = ({ stateManager }) => {
+    const [state, setState] = useState({ balance: 0.0 });
+
+    const periodicFcn = async () => {
+        if (utils.isLoggedIn({ stateManager })) {
+            const balance = await metamask.getBalance({
+                address: stateManager.state.userAccount,
+            });
+            setState({ balance });
+        }
+        setTimeout(periodicFcn, 5000);
+    };
+    useEffect(() => {
+        periodicFcn();
+    });
     if (utils.isLoggedIn({ stateManager })) {
         return (
             <div className="Navbar">
@@ -43,7 +60,7 @@ const Navbar = ({ stateManager }) => {
                 <div className="Container">
                     <NavOptions stateManager={stateManager}></NavOptions>
 
-                    <h4 className="UserBalance">{231.2} FIL</h4>
+                    <h4 className="UserBalance">{state.balance} FIL</h4>
                     <h4 className="UserAddress">
                         {shortAddress(stateManager.state.userAccount)}
                     </h4>

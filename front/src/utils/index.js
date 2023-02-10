@@ -5,7 +5,6 @@ const delay = (delayInms = 1000) => {
 };
 
 const isLoggedIn = ({ stateManager }) => {
-    console.log({ stateManager });
     return (
         stateManager.state.userAccount !=
         cfg.DEFAULT_GLOBAL_APP_STATE.userAccount

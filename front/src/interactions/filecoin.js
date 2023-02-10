@@ -26,6 +26,7 @@ const getFileInfo = async ({ cid }) => {
     x.replicas = x.replicas.toString();
     x.amount = x.amount.toString();
     x.status = x.activeReplicas == "0" ? "Pending" : "Active";
+    x.duration = utils.randomDuration({ monthRange: 5, dayRange: 30 });
     console.log({ x });
     return { ...x, cid };
 };
@@ -53,7 +54,7 @@ const getUserFileList = async ({ userAddress }) => {
 };
 
 const getFeedFileList = async () => {
-    const userAddresses = ["0x275986f4F52a03A24C926616e53165bc27edF65e"];
+    const userAddresses = ["0x754eeaE922e225D107714838850A366A2C97a589"]; //["0x275986f4F52a03A24C926616e53165bc27edF65e"];
 
     let list = [];
 
@@ -65,7 +66,7 @@ const getFeedFileList = async () => {
     console.log({ feedList: list });
 
     let randomList = [];
-    for (let i = 0; i < 4; ++i) {
+    for (let i = 0; i < cfg.FEED_LIST_LENGTH; ++i) {
         randomList.push(list[Math.floor(Math.random() * list.length)]);
     }
 

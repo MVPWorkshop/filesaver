@@ -56,9 +56,7 @@ const FileCard = ({ props }) => {
             </div>
             <div className="Entry">
                 <div className="Label">Cycle ends in:</div>
-                <div className="Value">
-                    {utils.randomDuration({ monthRange: 5, dayRange: 30 })}
-                </div>
+                <div className="Value">{duration}</div>
             </div>
             <button onClick={() => navigate(`/file/${cid}`)}>Donate</button>
         </div>

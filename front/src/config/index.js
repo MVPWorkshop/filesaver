@@ -22,7 +22,7 @@ const DEFAULT_GLOBAL_APP_STATE = {
 const IMAGES = {
     generateRandomImage: () => {
         //TODO: random image based on some argument
-        return "https://thumbs.dreamstime.com/b/red-random-hexadecimal-numbers-black-background-lcd-texture-applied-random-hex-numbers-screen-red-184988658.jpg";
+        return "/images/fs-placeholder-overlay.png";
     },
     downloadButton: "https://static.thenounproject.com/png/3554029-200.png",
     addFile: "/images/addFile.png", //"http://cdn.onlinewebfonts.com/svg/img_51677.png",
@@ -39,6 +39,7 @@ const UPLOAD_PRICE_CALCULATION = ({ period, replicas }) => {
 
 const BACKEND_URL = "http://localhost:3030";
 
+const FEED_LIST_LENGTH = 3;
 export {
     CONTRACT_ARTIFACTS,
     CONTRACT_ADDRESSES,
@@ -48,4 +49,5 @@ export {
     BACKEND_URL,
     DEFAULT_HYPERSPACE_PROVIDER,
     FILESAVER_ARTIFACT,
+    FEED_LIST_LENGTH,
 };

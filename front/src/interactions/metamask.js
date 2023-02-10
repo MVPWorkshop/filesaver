@@ -1,4 +1,4 @@
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 
 import * as utils from "../utils";
 import * as cfg from "../config";
@@ -59,4 +59,16 @@ const donate = async ({ cid, value }) => {
     return { err: "" };
 };
 
-export { connect, fileUpload, donate };
+const getBalance = async ({ address }) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+
+    const balance = (await provider.getBalance(address))
+        .div(BigNumber.from(1000000000))
+        .div(BigNumber.from(10000000))
+        .toString(); //add two decimals after
+    return `${balance.slice(0, balance.length - 2)}.${balance.slice(
+        balance.length - 2
+    )}`;
+};
+
+export { connect, fileUpload, donate, getBalance };
